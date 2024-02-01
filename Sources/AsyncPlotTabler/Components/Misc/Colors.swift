@@ -71,7 +71,21 @@ public enum Colors:Codable, Equatable {
         return "text-\(css)"
     }
     
-    static public let allColors:[Colors] = [
+    public enum Gray:String, Codable {
+        case g50  =  "50"
+        case g100 = "100"
+        case g200 = "200"
+        case g300 = "300"
+        case g400 = "400"
+        case g500 = "500"
+        case g600 = "600"
+        case g700 = "700"
+        case g800 = "800"
+        case g900 = "900"
+    }
+    
+    /// Returns a list of all the standard Tabler Colors
+    public static let allColors:[Colors] = [
         .blue,
         .azure,
         .indigo,
@@ -85,21 +99,24 @@ public enum Colors:Codable, Equatable {
         .teal,
         .cyan,
         .dark,
-        .muted
+        .muted,
+        .gray(.g400)
     ]
     
-    public enum Gray:String, Codable {
-        case g50  =  "50"
-        case g100 = "100"
-        case g200 = "200"
-        case g300 = "300"
-        case g400 = "400"
-        case g500 = "500"
-        case g600 = "600"
-        case g700 = "700"
-        case g800 = "800"
-        case g900 = "900"
-    }
+    /// Returns a list of Tablers Primary Colors (excluding colors such as gray, muted, primary and secondary)
+    public static var primaryColors:[Colors] = [
+        .blue,
+        .green,
+        .red,
+        .purple,
+        .azure,
+        .indigo,
+        .yellow,
+        .dark,
+    ]
+    
+    /// Returns the Colors value as a String
+    public var stringValue:String { self.css }
 }
 
 extension Colors {
