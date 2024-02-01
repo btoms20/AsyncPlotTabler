@@ -5,24 +5,24 @@
 
 import Plot
 
-struct IconLabel: Component {
+public struct IconLabel: Component {
     let icon:SVGIcon
     let content:Component
     let badge:Badge?
     
-    init(icon: Icons, text: String, badge: Badge? = nil) {
+    public init(icon: Icons, text: String, badge: Badge? = nil) {
         self.icon = SVGIcon(icon: icon)
         self.content = Text(text)
         self.badge = badge
     }
     
-    init(icon: SVGIcon, text: String, badge: Badge? = nil) {
+    public init(icon: SVGIcon, text: String, badge: Badge? = nil) {
         self.icon = icon
         self.content = Text(text)
         self.badge = badge
     }
     
-    init(icon: SVGIcon, badge: Badge? = nil, @ComponentBuilder _ content: ContentProvider) async {
+    public init(icon: SVGIcon, badge: Badge? = nil, @ComponentBuilder _ content: ContentProvider) async {
         self.icon = icon
         self.content = await content()
         self.badge = badge
@@ -50,7 +50,7 @@ struct IconLabel: Component {
         }
     }
     
-    func body() async -> Component {
+    public func body() async -> Component {
         Span {
             // Icon Label
             Span {

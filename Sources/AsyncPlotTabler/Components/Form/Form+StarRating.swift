@@ -8,10 +8,10 @@ import Foundation
 
 extension Plot.Form {
     /// StarRating
-    struct StarRating: Component {
+    public struct StarRating: Component {
         @EnvironmentValue(.dependencies) var deps
         
-        enum Style {
+        public enum Style {
             case fiveStars
             case tenStars
             
@@ -38,7 +38,7 @@ extension Plot.Form {
         let style:Style
         let script:String
         
-        init(style:Style = .fiveStars, icon: Icons = .star_filled, color: Colors = .yellow, size:SVGIcon.Size = .regular, defaultValue:Int = 0, clearable:Bool = false) async {
+        public init(style:Style = .fiveStars, icon: Icons = .star_filled, color: Colors = .yellow, size:SVGIcon.Size = .regular, defaultValue:Int = 0, clearable:Bool = false) async {
             self.uuid = UUID()
             self.icon = icon
             self.color = color
@@ -92,7 +92,7 @@ extension Plot.Form {
            <option value="1">Terrible</option>
          </select>
          */
-        func body() async -> Component {
+        public func body() async -> Component {
             // Libs
             deps.addCSSSource(.star_rating_css)
             deps.addJSSource(.star_rating_js)

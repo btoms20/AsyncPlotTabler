@@ -7,11 +7,11 @@ import Plot
 import Foundation
 
 extension Plot.Form {
-    struct ColorPicker: Component {
+    public struct ColorPicker: Component {
         
         @EnvironmentValue(.dependencies) var deps
         
-        enum Style {
+        public enum Style {
             case system
             case fancy(swatches:[String] = [])
         }
@@ -20,7 +20,7 @@ extension Plot.Form {
         let style:Style
         let color:String
         
-        init(defaultColor:String, style:Style = .system) {
+        public init(defaultColor:String, style:Style = .system) {
             self.uuid = UUID()
             self.color = defaultColor
             self.style = style
@@ -29,7 +29,7 @@ extension Plot.Form {
         /*
          //<input type="text" class="form-control d-block" id="colorpicker-1" value="#0054a6" />
          */
-        func body() async -> Component {
+        public func body() async -> Component {
             switch style {
             case .system:
                 return Input(type: .color, name: "colorpicker-\(uuid.uuidString)", value: color, isRequired: false, placeholder: nil)

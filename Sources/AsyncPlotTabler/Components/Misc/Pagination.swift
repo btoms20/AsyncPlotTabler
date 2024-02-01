@@ -5,15 +5,15 @@
 
 import Plot
 
-struct Pagination: Component {
-    struct Item {
+public struct Pagination: Component {
+    public struct Item {
         let url:URLRepresentable
         let title:String
         let subtitle:String
         let disabled:Bool
     }
     
-    enum Style {
+    public enum Style {
         case regular
         case bounded(count:Int = 2)
         case previousNext(prev:Item, next:Item)
@@ -24,7 +24,7 @@ struct Pagination: Component {
     let currentPage:Int
     let totalPages:Int
     
-    init(style:Style = .regular, textLabels:Bool = true, currentPage: Int = 1, totalPages:Int = 1) {
+    public init(style:Style = .regular, textLabels:Bool = true, currentPage: Int = 1, totalPages:Int = 1) {
         self.style = style
         self.textLabels = textLabels
         // First ensure that total pages is at least 1
@@ -33,7 +33,7 @@ struct Pagination: Component {
         self.currentPage = max(1, min(currentPage, totalPages))
     }
     
-    enum SegmentItem {
+    public enum SegmentItem {
         case dot
         case pageLink(Int)
         
@@ -125,7 +125,7 @@ struct Pagination: Component {
         }
     }
     
-    func body() async -> Component {
+    public func body() async -> Component {
         await Element(name: "ul") {
             
             if case .previousNext(let prev, let next) = style {

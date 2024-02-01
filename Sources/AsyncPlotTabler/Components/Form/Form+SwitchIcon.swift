@@ -7,8 +7,8 @@ import Plot
 
 extension Plot.Form {
     
-    struct Switch:Component {
-        struct IconState {
+    public struct Switch:Component {
+        public struct IconState {
             let icon:Icons
             let color:Colors
             let animation:SVGIcon.Animation?
@@ -20,8 +20,8 @@ extension Plot.Form {
             }
         }
         
-        enum Animation {
-            enum Direction:String {
+        public enum Animation {
+            public enum Direction:String {
                 case up
                 case left
                 case down
@@ -50,7 +50,7 @@ extension Plot.Form {
         let animation:Animation?
         let checked:Bool
         
-        init(off: IconState, on: IconState, size: SVGIcon.Size = .regular, animation: Animation? = nil, checked:Bool = false) {
+        public init(off: IconState, on: IconState, size: SVGIcon.Size = .regular, animation: Animation? = nil, checked:Bool = false) {
             self.on = on
             self.off = off
             self.size = size
@@ -58,7 +58,7 @@ extension Plot.Form {
             self.checked = checked
         }
         
-        func body() async -> Component {
+        public func body() async -> Component {
             Button {
                 Span {
                     SVGIcon(icon: off.icon, color: off.color, size: size, animation: off.animation)

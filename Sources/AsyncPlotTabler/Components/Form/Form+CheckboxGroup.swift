@@ -6,8 +6,8 @@
 import Plot
 
 extension Plot.Form {
-    struct CheckboxGroup: Component {
-        enum Style {
+    public struct CheckboxGroup: Component {
+        public enum Style {
             case vertical
             case inline
             
@@ -19,7 +19,7 @@ extension Plot.Form {
             }
         }
         
-        enum Selection {
+        public enum Selection {
             case one
             case many
             
@@ -31,20 +31,20 @@ extension Plot.Form {
             }
         }
         
-        struct Item {
+        public struct Item {
             let value:String
             let content:Component
             let disabled:Bool
             let checked:Bool
             
-            init(value:String, isDisabled:Bool = false, isChecked:Bool = false, @ComponentBuilder content: ContentProvider) async {
+            public init(value:String, isDisabled:Bool = false, isChecked:Bool = false, @ComponentBuilder content: ContentProvider) async {
                 self.value = value
                 self.content = await content()
                 self.disabled = isDisabled
                 self.checked = isChecked
             }
             
-            init(value:String, label:String, isDisabled:Bool = false, isChecked:Bool = false) {
+            public init(value:String, label:String, isDisabled:Bool = false, isChecked:Bool = false) {
                 self.value = value
                 self.content = Text(label)
                 self.disabled = isDisabled
@@ -57,14 +57,14 @@ extension Plot.Form {
         let selection:Selection
         let style:Style
         
-        init(name: String, selection: Selection = .many, style: Style = .vertical, items: [Item]) {
+        public init(name: String, selection: Selection = .many, style: Style = .vertical, items: [Item]) {
             self.name = name
             self.items = items
             self.selection = selection
             self.style = style
         }
         
-        func body() async -> Component {
+        public func body() async -> Component {
             Div {
                 for item in items {
                     await Plot.Form.Checkbox(style: selection.inputType, name: name, checked: item.checked, required: false, disabled: item.disabled) {

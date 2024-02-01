@@ -6,15 +6,15 @@
 import Plot
 
 extension Plot.Form {
-    struct ToggleSettingsGroup:Component {
+    public struct ToggleSettingsGroup:Component {
         
-        struct Setting {
+        public struct Setting {
             let value:Bool
             let label:String
             let description:String?
             let color:Colors
             
-            init(value: Bool = false, label: String, description: String? = nil, color: Colors = .primary) {
+            public init(value: Bool = false, label: String, description: String? = nil, color: Colors = .primary) {
                 self.value = value
                 self.label = label
                 self.description = description
@@ -25,7 +25,12 @@ extension Plot.Form {
         let title:String
         let settings:[Setting]
         
-        func body() async -> Component {
+        public init(title: String, settings: [Setting]) {
+            self.title = title
+            self.settings = settings
+        }
+        
+        public func body() async -> Component {
             await ComponentGroup {
                 Plot.Form.Label(self.title)
                 await DivC("divide-y") {

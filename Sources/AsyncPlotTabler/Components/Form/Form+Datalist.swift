@@ -7,19 +7,19 @@ import Plot
 import Foundation
 
 extension Plot.Form {
-    struct DataList:Component {
+    public struct DataList:Component {
         
         let uuid:UUID
         let placeholder:String?
         let options:[Selection.Option]
         
-        init(uuid: UUID = UUID(), placeholder: String? = nil, options: [Selection.Option]) {
+        public init(uuid: UUID = UUID(), placeholder: String? = nil, options: [Selection.Option]) {
             self.uuid = uuid
             self.placeholder = placeholder
             self.options = options
         }
         
-        func body() async -> Component {
+        public func body() async -> Component {
             await ComponentGroup {
                 await Element(name: "input") { }
                     .attribute(named: "list", value: "datalist-\(uuid)-options")

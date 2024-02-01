@@ -5,16 +5,20 @@
 
 import Plot
 
-struct Tracking:Component {
+public struct Tracking:Component {
     
-    struct Block {
+    public struct Block {
         let color:Colors
         let title:String
     }
     
     let blocks:[Block]
     
-    func body() async -> Component {
+    public init(blocks: [Block]) {
+        self.blocks = blocks
+    }
+    
+    public func body() async -> Component {
         await DivC("tracking") {
             for block in blocks {
                 await DivC("tracking-block") { }

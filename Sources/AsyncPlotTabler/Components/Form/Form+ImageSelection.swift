@@ -6,8 +6,8 @@
 import Plot
 
 extension Plot.Form {
-    struct ImageSelection:Component {
-        enum Selection {
+    public struct ImageSelection:Component {
+        public enum Selection {
             case one
             case many
             
@@ -19,7 +19,7 @@ extension Plot.Form {
             }
         }
         
-        struct Option {
+        public struct Option {
             let value:String
             let src:URLRepresentable
             let alt:String?
@@ -40,7 +40,7 @@ extension Plot.Form {
         let isRequired:Bool
         let disabled:Bool
         
-        init(name: String, selection: Selection = .many, isRequired: Bool = true, disabled: Bool = false, colWidth:Column.Width = .full, options: [Option]) {
+        public init(name: String, selection: Selection = .many, isRequired: Bool = true, disabled: Bool = false, colWidth:Column.Width = .full, options: [Option]) {
             self.name = name
             self.options = options
             self.selection = selection
@@ -49,7 +49,7 @@ extension Plot.Form {
             self.disabled = disabled
         }
         
-        func body() async -> Component {
+        public func body() async -> Component {
             await Row {
                 for option in options {
                     await Column(size: .full(colWidth)) {

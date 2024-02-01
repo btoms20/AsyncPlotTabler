@@ -7,9 +7,9 @@ import Plot
 import Foundation
 
 extension Plot.Form {
-    struct ButtonGroup:Component {
+    public struct ButtonGroup:Component {
         
-        enum Selection {
+        public enum Selection {
             case one
             case many
             
@@ -21,7 +21,7 @@ extension Plot.Form {
             }
         }
         
-        enum Layout {
+        public enum Layout {
             case inline
             case vertical
             
@@ -41,7 +41,7 @@ extension Plot.Form {
         let layout:Layout
         let dropdownMenu:[KeyedComponent]?
         
-        init(name: String, selection: Selection = .one, layout: Layout = .inline, items: [KeyedComponent], itemsClass:String? = nil, withDropDownMenu:[KeyedComponent]? = nil) {
+        public init(name: String, selection: Selection = .one, layout: Layout = .inline, items: [KeyedComponent], itemsClass:String? = nil, withDropDownMenu:[KeyedComponent]? = nil) {
             self.uuid = UUID()
             self.name = name
             self.items = items
@@ -51,7 +51,7 @@ extension Plot.Form {
             self.dropdownMenu = withDropDownMenu
         }
         
-        func body() async -> Component {
+        public func body() async -> Component {
             await DivC("w-100") {
                 for (i, item) in items.enumerated() {
                     Input(type: selection.inputType, name: name, value: item.key)

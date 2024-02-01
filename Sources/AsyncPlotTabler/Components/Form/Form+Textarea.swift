@@ -6,7 +6,7 @@
 import Plot
 
 extension Plot.Form {
-    struct Textarea:Component {
+    public struct Textarea:Component {
         let name:String
         let value:String?
         let placeholder:String?
@@ -16,7 +16,7 @@ extension Plot.Form {
         let readonly:Bool
         let autosize:Bool
         
-        init(name: String, value: String? = nil, placeholder: String? = nil, rows:Int? = nil, isRequired: Bool = true, disabled: Bool = false, readonly: Bool = false, autosize:Bool = false) {
+        public init(name: String, value: String? = nil, placeholder: String? = nil, rows:Int? = nil, isRequired: Bool = true, disabled: Bool = false, readonly: Bool = false, autosize:Bool = false) {
             self.name = name
             self.value = value
             self.placeholder = placeholder
@@ -27,7 +27,7 @@ extension Plot.Form {
             self.autosize = autosize
         }
         
-        func body() async -> Component {
+        public func body() async -> Component {
             TextArea(text: value ?? "", name: name, numberOfRows: rows, numberOfColumns: nil, isRequired: isRequired)
                 .class("form-control")
                 .class(disabled ? "disabled" : "")

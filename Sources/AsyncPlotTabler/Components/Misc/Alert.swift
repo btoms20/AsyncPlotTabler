@@ -5,8 +5,8 @@
 
 import Plot
 
-struct Alert:Component {
-    enum Style {
+public struct Alert:Component {
+    public enum Style {
         case success
         case warning
         case danger
@@ -32,7 +32,7 @@ struct Alert:Component {
     let dismissable:Bool
     let important:Bool
     
-    init(style: Style, icon:Icons? = nil, dismissable:Bool = false, important:Bool = false, message: String, description: String? = nil) {
+    public init(style: Style, icon:Icons? = nil, dismissable:Bool = false, important:Bool = false, message: String, description: String? = nil) {
         self.style = style
         self.icon = icon
         self.dismissable = dismissable
@@ -47,7 +47,7 @@ struct Alert:Component {
         }
     }
     
-    init(style: Style, icon:Icons? = nil, dismissable:Bool = false, important:Bool = false, content: Component) {
+    public init(style: Style, icon:Icons? = nil, dismissable:Bool = false, important:Bool = false, content: Component) {
         self.style = style
         self.icon = icon
         self.dismissable = dismissable
@@ -55,7 +55,7 @@ struct Alert:Component {
         self.content = content
     }
     
-    init(style: Style, icon:Icons? = nil, dismissable:Bool = false, important:Bool = false, @ComponentBuilder _ content: ContentProvider) async {
+    public init(style: Style, icon:Icons? = nil, dismissable:Bool = false, important:Bool = false, @ComponentBuilder _ content: ContentProvider) async {
         self.style = style
         self.icon = icon
         self.dismissable = dismissable
@@ -64,7 +64,7 @@ struct Alert:Component {
     }
     
     
-    func body() async -> Component {
+    public func body() async -> Component {
         await DivC("alert") {
             
             await buildAlertBody()

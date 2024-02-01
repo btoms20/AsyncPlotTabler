@@ -5,14 +5,14 @@
 
 import Plot
 
-struct Spinner: Component {
+public struct Spinner: Component {
     
-    enum Wrapper {
+    public enum Wrapper {
         case div
         case span
     }
     
-    enum Style {
+    public enum Style {
         case border
         case solid
         case dots
@@ -26,7 +26,7 @@ struct Spinner: Component {
         }
     }
     
-    enum Size {
+    public enum Size {
         case regular
         case small
         
@@ -43,7 +43,7 @@ struct Spinner: Component {
     let size:Size
     let color:Colors?
     
-    init(wrapper: Wrapper = .div, type: Style = .border, size: Size = .regular, color: Colors? = nil) {
+    public init(wrapper: Wrapper = .div, type: Style = .border, size: Size = .regular, color: Colors? = nil) {
         self.wrapper = wrapper
         self.type = type
         self.size = size
@@ -53,7 +53,7 @@ struct Spinner: Component {
     /*
      <div class="spinner-border" role="status"></div>
      */
-    func body() async -> Component {
+    public func body() async -> Component {
         switch wrapper {
         case .div:
             return Div { }

@@ -5,9 +5,9 @@
 
 import Plot
 
-struct Tag: Component {
+public struct Tag: Component {
     
-    enum Style {
+    public enum Style {
         case text(String)
         //case flag(String, Flag)
         case icon(Icons, String)
@@ -68,12 +68,12 @@ struct Tag: Component {
     let content:Component
     let removable:Bool
     
-    init(removable:Bool = true, @ComponentBuilder _ content:ContentProvider) async {
+    public init(removable:Bool = true, @ComponentBuilder _ content:ContentProvider) async {
         self.removable = removable
         self.content = await content()
     }
     
-    init(removable:Bool = true, style:Style) async {
+    public init(removable:Bool = true, style:Style) async {
         self.removable = removable
         self.content = await style.buildComponent()
     }
@@ -84,7 +84,7 @@ struct Tag: Component {
        <a href="#" class="btn-close"></a>
      </span>
      */
-    func body() async -> Component {
+    public func body() async -> Component {
         Span {
             content
             Plot.Link("", url: "#")

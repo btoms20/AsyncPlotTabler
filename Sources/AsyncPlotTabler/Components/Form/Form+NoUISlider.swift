@@ -7,11 +7,11 @@ import Plot
 import Foundation
 
 extension Plot.Form {
-    struct NoUISlider:Component {
+    public struct NoUISlider:Component {
         
         @EnvironmentValue(.dependencies) var deps
         
-        enum Style {
+        public enum Style {
             case regular(defaultStart:Int?)
             case range(defaultStart:Int?, defaultEnd:Int?)
             
@@ -39,7 +39,7 @@ extension Plot.Form {
         let style:Style
         let script:String
         
-        init(uuid: UUID = UUID(), range: ClosedRange<Int>, style: Style? = nil, step:Int? = nil, color: Colors = .primary) {
+        public init(uuid: UUID = UUID(), range: ClosedRange<Int>, style: Style? = nil, step:Int? = nil, color: Colors = .primary) {
             self.uuid = uuid
             self.range = range
             self.step = step ?? (range.upperBound - range.lowerBound) / 10
@@ -65,7 +65,7 @@ extension Plot.Form {
         /*
          <div class="form-range mb-2" id="range-simple"></div>
          */
-        func body() async -> Component {
+        public func body() async -> Component {
             deps.addJSSource("/libs/nouislider/dist/nouislider.min.js")
             deps.addRawScript(self.script)
             

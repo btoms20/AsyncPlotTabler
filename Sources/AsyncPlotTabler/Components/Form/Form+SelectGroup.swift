@@ -6,9 +6,9 @@
 import Plot
 
 extension Plot.Form {
-    struct SelectGroup:Component {
+    public struct SelectGroup:Component {
         
-        enum Selection {
+        public enum Selection {
             case one
             case many
             
@@ -20,7 +20,7 @@ extension Plot.Form {
             }
         }
         
-        enum Layout {
+        public enum Layout {
             case inline
             case vertical(includeCheckbox:Bool)
             
@@ -39,7 +39,7 @@ extension Plot.Form {
             }
         }
         
-        enum Style {
+        public enum Style {
             case regular
             case pills
             
@@ -57,7 +57,7 @@ extension Plot.Form {
         let layout:Layout
         let style:Style
         
-        init(name: String, selection: Selection = .one, layout: Layout = .inline, style: Style = .regular, items: [KeyedComponent]) {
+        public init(name: String, selection: Selection = .one, layout: Layout = .inline, style: Style = .regular, items: [KeyedComponent]) {
             self.name = name
             self.items = items
             self.selection = selection
@@ -65,7 +65,7 @@ extension Plot.Form {
             self.style = style
         }
         
-        func body() async -> Component {
+        public func body() async -> Component {
             await DivC("form-selectgroup") {
                 for item in items {
                     await Element(name: "label") {

@@ -6,7 +6,7 @@
 import Plot
 
 extension Plot.Form {
-    struct Range:Component {
+    public struct Range:Component {
         
         let name:String?
         let value:Int
@@ -16,7 +16,7 @@ extension Plot.Form {
         let isRequired:Bool
         let isDisabled:Bool
         
-        init(name: String? = nil, range: ClosedRange<Int>, value: Int? = nil, step: Int? = nil, color: Colors = .primary, required:Bool = true, disabled:Bool = false) {
+        public init(name: String? = nil, range: ClosedRange<Int>, value: Int? = nil, step: Int? = nil, color: Colors = .primary, required:Bool = true, disabled:Bool = false) {
             self.name = name
             self.range = range
             self.value = value.clamped(to: range) ?? range.lowerBound
@@ -29,7 +29,7 @@ extension Plot.Form {
         /*
          <input type="range" class="form-range mb-2" value="40" min="0" max="100" step="10">
          */
-        func body() async -> Component {
+        public func body() async -> Component {
             Input(type: .range, name: name, value: "\(value)", isRequired: isRequired)
                 .class("form-range mb-2")
                 .class(color.textCSS)
