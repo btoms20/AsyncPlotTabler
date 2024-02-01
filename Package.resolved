@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "plot",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/btoms20/Plot.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "0bd2cb9362c4c6734665461df9c80b069d70379f"
+      }
+    }
+  ],
+  "version" : 2
+}
