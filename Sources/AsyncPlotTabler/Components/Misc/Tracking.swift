@@ -10,6 +10,11 @@ public struct Tracking:Component {
     public struct Block {
         let color:Colors
         let title:String
+        
+        public init(color: Colors, title: String) {
+            self.color = color
+            self.title = title
+        }
     }
     
     let blocks:[Block]
