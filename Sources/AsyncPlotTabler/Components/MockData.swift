@@ -10,6 +10,26 @@ public func loremIpsum() -> String {
 }
 
 public struct MockData {
+    public struct Person:Codable {
+        let name:String
+        let city:String
+        let type:String
+        let score:Double
+        let date:Date
+        let quantity:Int
+        let progress:Double
+        
+        public init(name: String, city: String, type: String, score: Double, date: Date, quantity: Int, progress: Double) {
+            self.name = name
+            self.city = city
+            self.type = type
+            self.score = score
+            self.date = date
+            self.quantity = quantity
+            self.progress = progress
+        }
+    }
+    
     public struct User {
         public let name:String
         public let initials:String
@@ -47,11 +67,11 @@ public struct MockData {
     ]
     
     
-    struct Photo {
-        let src:URLRepresentable
-        let alt:String
+    public struct Photo {
+        public let src:URLRepresentable
+        public let alt:String
     }
-    static let Photos:[Photo] = [
+    public static let Photos:[Photo] = [
         .init(src: "/static/photos/a-visit-to-the-bookstore.jpg", alt: ""),
         .init(src: "/static/photos/a-woman-works-at-a-desk-with-a-laptop-and-a-cup-of-coffee.jpg", alt: ""),
         .init(src: "/static/photos/a-woman-works-on-a-laptop-at-home-2.jpg", alt: ""),
@@ -133,7 +153,7 @@ public struct MockData {
         .init(src: "/static/photos/young-woman-working-in-a-cafe.jpg", alt: "")
     ]
     
-    struct UptimeEntry:KeyedComponentGroup {
+    public struct UptimeEntry:KeyedComponentGroup {
         let timePeriod:String
         let availabilty:Double
         let downtime:String
@@ -141,7 +161,7 @@ public struct MockData {
         let longestIncident:String
         let avgIncident:String
         
-        func keyed() async -> [KeyedComponent] {
+        public func keyed() async -> [KeyedComponent] {
             [
                 .init(key: "time period",  component: Text(timePeriod)),
                 .init(key: "availabilty", component: Text("\(availabilty)%")),
@@ -153,7 +173,7 @@ public struct MockData {
         }
     }
     
-    static let UptimeData = [
+    public static let UptimeData = [
         UptimeEntry(timePeriod: "Today", availabilty: 98.9533, downtime: "1 minute", incidents: 1, longestIncident: "1 minute", avgIncident: "1 minute"),
         UptimeEntry(timePeriod: "Last 7 days", availabilty: 98.9533, downtime: "1 minute", incidents: 1, longestIncident: "1 minute", avgIncident: "1 minute"),
         UptimeEntry(timePeriod: "Last 30 days", availabilty: 98.9533, downtime: "1 minute", incidents: 1, longestIncident: "1 minute", avgIncident: "1 minute"),
@@ -161,7 +181,7 @@ public struct MockData {
         UptimeEntry(timePeriod: "All time", availabilty: 98.9533, downtime: "1 minute", incidents: 1, longestIncident: "1 minute", avgIncident: "1 minute"),
     ]
     
-    static func randomActivity(username:String) -> String {
+    public static func randomActivity(username:String) -> String {
         let Activities = [
             "{{username}} commented on your post.",
             "{{username}} commented on your photo.",
@@ -178,12 +198,12 @@ public struct MockData {
     }
     
     
-    struct DevActivity:KeyedComponentGroup {
+    public struct DevActivity:KeyedComponentGroup {
         let user:Avatar.AvatarType
         let commit:String
         let date:String
         
-        func keyed() async -> [KeyedComponent] {
+        public func keyed() async -> [KeyedComponent] {
             [
                 .init(key: "user",  component: Avatar(size: .sm, user)),
                 .init(truncate: true, key: "commit", component: Div { Text(commit) }.class("text-truncate") ),
@@ -191,7 +211,7 @@ public struct MockData {
             ]
         }
         
-        static let mockData:[DevActivity] = [
+        public static let mockData:[DevActivity] = [
             DevActivity(user: MockData.Users[0].avatar, commit: "Fix dart Sass compatibility (#29755)", date: "28 Nov 2019"),
             DevActivity(user: MockData.Users[1].avatar, commit: "Change deprecated html tags to text decoration classes (#29604)", date: "27 Nov 2019"),
             DevActivity(user: MockData.Users[2].avatar, commit: "justify-content:between ⇒ justify-content:space-between (#29734)", date: "26 Nov 2019"),
@@ -200,14 +220,14 @@ public struct MockData {
         ]
     }
     
-    struct PageVisits:KeyedComponentGroup {
+    public struct PageVisits:KeyedComponentGroup {
         let url:String
         let visitors:String
         let unique:String
         let bounceRate:String
         let bounceChart:Chart.DataSeries
         
-        func keyed() async -> [KeyedComponent] {
+        public func keyed() async -> [KeyedComponent] {
             [
                 .init(key: "Page name",  component: await ComponentGroup {
                     Text(url)
@@ -222,7 +242,7 @@ public struct MockData {
             ]
         }
         
-        static let mockData:[PageVisits] = [
+        public static let mockData:[PageVisits] = [
             PageVisits(
                 url: "/",
                 visitors: "4,896",
@@ -288,12 +308,12 @@ public struct MockData {
         ))
     }
     
-    struct SocialMediaTraffic:KeyedComponentGroup {
+    public struct SocialMediaTraffic:KeyedComponentGroup {
         let network:String
         let visitors:Int
         let percent:Double
         
-        func keyed() async -> [KeyedComponent] {
+        public func keyed() async -> [KeyedComponent] {
             [
                 .init(key: "network",  component: Text(network) ),
                 .init(colSpan: 2, key: "visitors", component: Text("\(visitors)") ),
@@ -301,7 +321,7 @@ public struct MockData {
             ]
         }
         
-        static let mockData:[SocialMediaTraffic] = [
+        public static let mockData:[SocialMediaTraffic] = [
             SocialMediaTraffic(network: "Instagram", visitors: 3550, percent: 71.0),
             SocialMediaTraffic(network: "Twitter", visitors: 1798, percent: 35.96),
             SocialMediaTraffic(network: "Facebook", visitors: 1245, percent: 24.9),
@@ -312,17 +332,17 @@ public struct MockData {
         ]
     }
 
-    struct Tasks {
-        struct TaskItem {
-            let title:String
-            let done:Bool
-            let dueDate:String
-            let subTasks:String
-            let messages:String
-            let avatar:Avatar.AvatarType
+    public struct Tasks {
+        public struct TaskItem {
+            public let title:String
+            public let done:Bool
+            public let dueDate:String
+            public let subTasks:String
+            public let messages:String
+            public let avatar:Avatar.AvatarType
         }
         
-        static let items:[TaskItem] = [
+        public static let items:[TaskItem] = [
             .init(title: "Extend the data model.", done: true, dueDate: "August 05, 2021", subTasks: "2/7", messages: "3", avatar: MockData.Users[0].avatar),
             .init(title: "Verify the event flow", done: false, dueDate: "January 01, 2019", subTasks: "3/10", messages: "6", avatar: MockData.Users[1].avatar),
             .init(title: "Database backup and maintenence", done: false, dueDate: "December 28, 2018", subTasks: "0/6", messages: "1", avatar: MockData.Users[2].avatar),
@@ -332,7 +352,7 @@ public struct MockData {
         ]
     }
     
-    struct Invoices:KeyedComponentGroup {
+    public struct Invoices:KeyedComponentGroup {
         struct Status {
             let label:String
             let color:Colors
@@ -348,7 +368,7 @@ public struct MockData {
         let status:Status
         let price:String
         
-        func keyed() async -> [KeyedComponent] {
+        public func keyed() async -> [KeyedComponent] {
             await [
                 .init(key: "selected", component: Plot.Form.Checkbox(style: .check, name: "", checked: checked, required: false, label: { EmptyComponent() }) ),
                 .init(key: "number", component: Text(number) ),
@@ -365,7 +385,7 @@ public struct MockData {
             ]
         }
         
-        static let mockData:[Invoices] = [
+        public static let mockData:[Invoices] = [
             .init(checked: false, number: "001401", subject: "Design Works", client: "Carlson Limited", clientRegion: .United_States_of_America, vatNumber: "87956621", created: "15 Dec 2017", status: .init(label: "Paid", color: .green), price: "$887"),
             .init(checked: false, number: "001402", subject: "UX Wireframes", client: "Adobe", clientRegion: .Great_Britain, vatNumber: "87956421", created: "12 Apr 2017", status: .init(label: "Pending", color: .yellow), price: "$1200"),
             .init(checked: false, number: "001403", subject: "New Dashboard", client: "Bluewolf", clientRegion: .Denmark, vatNumber: "87952621", created: "23 Oct 2017", status: .init(label: "Pending", color: .yellow), price: "$534"),
@@ -377,9 +397,9 @@ public struct MockData {
         ]
     }
     
-    static let MapRegionData = ["AF": 16, "AL": 11, "DZ": 158, "AO": 85, "AG": 1, "AR": 351, "AM": 8, "AU": 1219, "AT": 366, "AZ": 52, "BS": 7, "BH": 21, "BD": 105, "BB": 3, "BY": 52, "BE": 461, "BZ": 1, "BJ": 6, "BT": 1, "BO": 19, "BA": 16, "BW": 12, "BR": 2023, "BN": 11, "BG": 44, "BF": 8, "BI": 1, "KH": 11, "CM": 21, "CA": 1563, "CV": 1, "CF": 2, "TD": 7, "CL": 199, "CN": 5745, "CO": 283, "KM": 0, "CD": 12, "CG": 11, "CR": 35, "CI": 22, "HR": 59, "CY": 22, "CZ": 195, "DK": 304, "DJ": 1, "DM": 0, "DO": 50, "EC": 61, "EG": 216, "SV": 21, "GQ": 14, "ER": 2, "EE": 19, "ET": 30, "FJ": 3, "FI": 231, "FR": 2555, "GA": 12, "GM": 1, "GE": 11, "DE": 3305, "GH": 18, "GR": 305, "GD": 0, "GT": 40, "GN": 4, "GW": 0, "GY": 2, "HT": 6, "HN": 15, "HK": 226, "HU": 132, "IS": 12, "IN": 1430, "ID": 695, "IR": 337, "IQ": 84, "IE": 204, "IL": 201, "IT": 2036, "JM": 13, "JP": 5390, "JO": 27, "KZ": 129, "KE": 32, "KI": 0, "KR": 986, "KW": 117, "KG": 4, "LA": 6, "LV": 23, "LB": 39, "LS": 1, "LR": 0, "LY": 77, "LT": 35, "LU": 52, "MK": 9, "MG": 8, "MW": 5, "MY": 218, "MV": 1, "ML": 9, "MT": 7, "MR": 3, "MU": 9, "MX": 1004, "MD": 5, "MN": 5, "ME": 3, "MA": 91, "MZ": 10, "MM": 35, "NA": 11, "NP": 15, "NL": 770, "NZ": 138, "NI": 6, "NE": 5, "NG": 206, "NO": 413, "OM": 53, "PK": 174, "PA": 27, "PG": 8, "PY": 17, "PE": 153, "PH": 189, "PL": 438, "PT": 223, "QA": 126, "RO": 158, "RU": 1476, "RW": 5, "WS": 0, "ST": 0, "SA": 434, "SN": 12, "RS": 38, "SC": 0, "SL": 1, "SG": 217, "SK": 86, "SI": 46, "SB": 0, "ZA": 354, "ES": 1374, "LK": 48, "KN": 0, "LC": 1, "VC": 0, "SD": 65, "SR": 3, "SZ": 3, "SE": 444, "CH": 522, "SY": 59, "TW": 426, "TJ": 5, "TZ": 22, "TH": 312, "TL": 0, "TG": 3, "TO": 0, "TT": 21, "TN": 43, "TR": 729, "TM": 0, "UG": 17, "UA": 136, "AE": 239, "GB": 2258, "US": 4624, "UY": 40, "UZ": 37, "VU": 0, "VE": 285, "VN": 101, "YE": 30, "ZM": 15, "ZW": 5]
+    public static let MapRegionData = ["AF": 16, "AL": 11, "DZ": 158, "AO": 85, "AG": 1, "AR": 351, "AM": 8, "AU": 1219, "AT": 366, "AZ": 52, "BS": 7, "BH": 21, "BD": 105, "BB": 3, "BY": 52, "BE": 461, "BZ": 1, "BJ": 6, "BT": 1, "BO": 19, "BA": 16, "BW": 12, "BR": 2023, "BN": 11, "BG": 44, "BF": 8, "BI": 1, "KH": 11, "CM": 21, "CA": 1563, "CV": 1, "CF": 2, "TD": 7, "CL": 199, "CN": 5745, "CO": 283, "KM": 0, "CD": 12, "CG": 11, "CR": 35, "CI": 22, "HR": 59, "CY": 22, "CZ": 195, "DK": 304, "DJ": 1, "DM": 0, "DO": 50, "EC": 61, "EG": 216, "SV": 21, "GQ": 14, "ER": 2, "EE": 19, "ET": 30, "FJ": 3, "FI": 231, "FR": 2555, "GA": 12, "GM": 1, "GE": 11, "DE": 3305, "GH": 18, "GR": 305, "GD": 0, "GT": 40, "GN": 4, "GW": 0, "GY": 2, "HT": 6, "HN": 15, "HK": 226, "HU": 132, "IS": 12, "IN": 1430, "ID": 695, "IR": 337, "IQ": 84, "IE": 204, "IL": 201, "IT": 2036, "JM": 13, "JP": 5390, "JO": 27, "KZ": 129, "KE": 32, "KI": 0, "KR": 986, "KW": 117, "KG": 4, "LA": 6, "LV": 23, "LB": 39, "LS": 1, "LR": 0, "LY": 77, "LT": 35, "LU": 52, "MK": 9, "MG": 8, "MW": 5, "MY": 218, "MV": 1, "ML": 9, "MT": 7, "MR": 3, "MU": 9, "MX": 1004, "MD": 5, "MN": 5, "ME": 3, "MA": 91, "MZ": 10, "MM": 35, "NA": 11, "NP": 15, "NL": 770, "NZ": 138, "NI": 6, "NE": 5, "NG": 206, "NO": 413, "OM": 53, "PK": 174, "PA": 27, "PG": 8, "PY": 17, "PE": 153, "PH": 189, "PL": 438, "PT": 223, "QA": 126, "RO": 158, "RU": 1476, "RW": 5, "WS": 0, "ST": 0, "SA": 434, "SN": 12, "RS": 38, "SC": 0, "SL": 1, "SG": 217, "SK": 86, "SI": 46, "SB": 0, "ZA": 354, "ES": 1374, "LK": 48, "KN": 0, "LC": 1, "VC": 0, "SD": 65, "SR": 3, "SZ": 3, "SE": 444, "CH": 522, "SY": 59, "TW": 426, "TJ": 5, "TZ": 22, "TH": 312, "TL": 0, "TG": 3, "TO": 0, "TT": 21, "TN": 43, "TR": 729, "TM": 0, "UG": 17, "UA": 136, "AE": 239, "GB": 2258, "US": 4624, "UY": 40, "UZ": 37, "VU": 0, "VE": 285, "VN": 101, "YE": 30, "ZM": 15, "ZW": 5]
     
-    static let MapMarkerData:[SVGMap.Marker] = [
+    public static let MapMarkerData:[SVGMap.Marker] = [
         .init(coords: .init(lat: 61.542, lon: 105.3188), name: "Russia"),
         .init(coords: .init(lat: 56.1304, lon: -106.346), name: "Canada"),
         .init(coords: .init(lat: 71.7069, lon: -42.6043), name: "Greenland"),
@@ -391,7 +411,7 @@ public struct MockData {
         .init(coords: .init(lat: 48.379433, lon: 31.16558), name: "Ukraine"),
     ]
     
-    static let MapMarkerLines:[SVGMap.Lines.Line] = [
+    public static let MapMarkerLines:[SVGMap.Lines.Line] = [
         .init(from: "Russia", to: "Greenland"),
         .init(from: "Russia", to: "United States"),
         .init(from: "Russia", to: "Canada"),
@@ -401,7 +421,7 @@ public struct MockData {
         .init(from: "Brazil", to: "China"),
     ]
     
-    struct HTTPRequestAssertions:KeyedComponentGroup {
+    public struct HTTPRequestAssertions:KeyedComponentGroup {
         
         enum Source:CaseIterable {
             case statusCode
@@ -454,7 +474,7 @@ public struct MockData {
         let comparison:Comparison?
         let target:String?
         
-        func keyed() async -> [KeyedComponent] {
+        public func keyed() async -> [KeyedComponent] {
             await [
                 .init(key: "source", component: Plot.Form.Selection(name: "assertion-source", options: Source.allCases.asyncMap { sType in
                      await .init(value: "\(sType)", selected: self.source == sType, label: { Text(sType.label) })
@@ -467,7 +487,7 @@ public struct MockData {
             ]
         }
         
-        static let mockData:[HTTPRequestAssertions] = [
+        public static let mockData:[HTTPRequestAssertions] = [
             .init(source: .statusCode, property: nil, comparison: .equals, target: "200"),
             .init(source: .jsonBody, property: "parameters.alt.type", comparison: .hasValue, target: "string"),
             .init(source: .responseTime, property: nil, comparison: .lessThan, target: "500"),
@@ -481,7 +501,7 @@ extension Array where Element == NavBar.RouteItem {
         .init(title: "Home", url: "/home", icon: .home, active: true),
         .init(title: "Interface", icon: .box, subLinks: [[
             .init(title: "Alerts", url: "/alerts"),
-            .init(title: "Accordian", url: "/accordian"),
+            .init(title: "Accordion", url: "/accordion"),
             .init(title: "Authentication", subLinks: [
                 .init(title: "Sing in", url: "/sign-in"),
                 .init(title: "Sing in link", url: "/sign-in-link", decoration: NavBar.NewBadge()),
