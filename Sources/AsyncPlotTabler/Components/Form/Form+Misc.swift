@@ -155,6 +155,11 @@ extension Plot.Form {
         let label:String
         let items:[DropDownMenuItem]
         
+        public init(label: String, items: [DropDownMenuItem]) {
+            self.label = label
+            self.items = items
+        }
+        
         public func body() async -> Component {
             await ComponentGroup {
                 await Element(name: "button") {
