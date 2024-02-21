@@ -44,7 +44,7 @@ extension Card {
             .class(css ?? "")
         }
         
-        static func raw(@ComponentBuilder _ raw:@escaping () async -> Component, class:String? = nil) async -> Body {
+        public static func raw(@ComponentBuilder _ raw:@escaping () async -> Component, class:String? = nil) async -> Body {
             return Body.init(content: await raw(), class: `class`, raw: true)
         }
     }

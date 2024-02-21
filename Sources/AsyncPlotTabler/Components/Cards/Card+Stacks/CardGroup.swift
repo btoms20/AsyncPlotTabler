@@ -5,10 +5,14 @@
 
 import Plot
 
-struct CardGroup:Component {
+public struct CardGroup:Component {
     let cards:[Card]
     
-    func body() async -> Component {
+    public init(cards: [Card]) {
+        self.cards = cards
+    }
+    
+    public func body() async -> Component {
         await DivC("card-group") {
             for card in cards {
                 card

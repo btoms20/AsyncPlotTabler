@@ -6,11 +6,15 @@
 import Plot
 import Foundation
 
-struct Datagrid: Component {
+public struct Datagrid: Component {
     let uuid:UUID = UUID()
     let items:[Item]
     
-    func body() async -> Component {
+    public init(items: [Item]) {
+        self.items = items
+    }
+    
+    public func body() async -> Component {
         await DivC("datagrid") {
             for item in items {
                 await DivC("datagrid-item") {
@@ -22,12 +26,17 @@ struct Datagrid: Component {
 }
 
 extension Datagrid {
-    struct Item: Component {
+    public struct Item: Component {
         
         var title:String
-        @ComponentBuilder let content:Component
+        let content:Component
         
-        func body() async -> Component {
+        public init(title: String, @ComponentBuilder _ content: ContentProvider) async {
+            self.title = title
+            self.content = await content()
+        }
+        
+        public func body() async -> Component {
             await ComponentGroup {
                 await DivC("datagrid-title") {
                     Text(title)

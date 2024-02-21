@@ -29,7 +29,7 @@ public enum Colors:Codable, Equatable {
 //    case rgba(r:Int, g:Int, b:Int, a:Float = 1.0)
 //    case hex(String)
     
-    var css:String {
+    public var css:String {
         switch self {
 //        case .rgba(let r, let g, let b, let a):
 //            <#code#>
@@ -44,7 +44,7 @@ public enum Colors:Codable, Equatable {
         }
     }
     
-    var backgroundCSS:String {
+    public var backgroundCSS:String {
         switch self {
         case .gray:
             return css
@@ -53,11 +53,11 @@ public enum Colors:Codable, Equatable {
         }
     }
     
-    var textLiteCSS:String {
+    public var textLiteCSS:String {
         return "text-\(css)-fg"
     }
     
-    var backgroundLiteCSS:String {
+    public var backgroundLiteCSS:String {
         switch self {
         case .gray:
             return "\(css)-lt"
@@ -67,7 +67,7 @@ public enum Colors:Codable, Equatable {
         //return "bg-\(css)-lt"
     }
     
-    var textCSS:String {
+    public var textCSS:String {
         return "text-\(css)"
     }
     
@@ -120,7 +120,7 @@ public enum Colors:Codable, Equatable {
 }
 
 extension Colors {
-    var tagValue:String {
+    public var tagValue:String {
         "{{{\(self.css)}}}"
     }
 }

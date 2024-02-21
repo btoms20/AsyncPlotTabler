@@ -6,8 +6,8 @@
 import Plot
 import Foundation
 
-struct Carousel: Component {
-    enum Location {
+public struct Carousel: Component {
+    public enum Location {
         case bottom
         case side
         
@@ -19,7 +19,7 @@ struct Carousel: Component {
         }
     }
     
-    enum IndicatorStyle {
+    public enum IndicatorStyle {
         case line
         case dot(Location)
         case thumbnail(Location)
@@ -35,18 +35,18 @@ struct Carousel: Component {
         }
     }
     
-    enum Style {
+    public enum Style {
         case regular
         case indicators(IndicatorStyle)
         case controls
     }
     
-    struct Item {
+    public struct Item {
         let src:URLRepresentable
         let label:String?
         let description:String?
         
-        init(src: URLRepresentable, label: String? = nil, description: String? = nil) {
+        public init(src: URLRepresentable, label: String? = nil, description: String? = nil) {
             self.src = src
             self.label = label
             self.description = description
@@ -58,7 +58,7 @@ struct Carousel: Component {
     let style:Style
     let showCaptions:Bool
     
-    init(uuid:UUID = UUID(), style:Style = .regular, showCaptions:Bool = false, items: [Item]) {
+    public init(uuid:UUID = UUID(), style:Style = .regular, showCaptions:Bool = false, items: [Item]) {
         self.uuid = uuid
         self.items = items
         self.style = style
@@ -86,7 +86,7 @@ struct Carousel: Component {
        </div>
      </div>
      */
-    func body() async -> Component {
+    public func body() async -> Component {
         await DivC("carousel slide") {
             // Indicators
             await indicators()

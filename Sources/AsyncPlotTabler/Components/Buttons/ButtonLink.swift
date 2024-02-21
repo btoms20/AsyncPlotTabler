@@ -66,7 +66,7 @@ public struct ButtonLink: Component {
             }
         }
         
-        static let allCases:[Theme] = [
+        public static let allCases:[Theme] = [
             .raw,
             .primary,
             .secondary,
@@ -92,7 +92,7 @@ public struct ButtonLink: Component {
             }
         }
         
-        static let allCases:[State] = [
+        public static let allCases:[State] = [
             .normal,
             .active,
             .disabled

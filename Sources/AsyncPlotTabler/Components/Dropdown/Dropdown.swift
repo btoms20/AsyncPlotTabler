@@ -83,6 +83,11 @@ public protocol DropDownMenuItem:Component { }
 
 public struct DropDownMenu_Header:DropDownMenuItem {
     let header:String
+    
+    public init(header: String) {
+        self.header = header
+    }
+    
     /*
      <h6 class="dropdown-header">Dropdown header</h6>
      */
@@ -93,6 +98,7 @@ public struct DropDownMenu_Header:DropDownMenuItem {
 
 public struct DropDownMenu_Divider:DropDownMenuItem {
     
+    public init() { }
     /*
      <div class="dropdown-divider"></div>
      */

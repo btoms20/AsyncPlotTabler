@@ -6,17 +6,29 @@
 import Plot
 import Foundation
 
-struct Chat:Component {
-    struct ConversationHeader {
+public struct Chat:Component {
+    public struct ConversationHeader {
         let uuid:UUID
         let user:MockData.User
         let latestMessage:String
+        
+        public init(uuid: UUID, user: MockData.User, latestMessage: String) {
+            self.uuid = uuid
+            self.user = user
+            self.latestMessage = latestMessage
+        }
     }
     
-    struct ChatItem {
+    public struct ChatItem {
         let from:MockData.User
         let date:String
         let msg:String
+        
+        public init(from: MockData.User, date: String, msg: String) {
+            self.from = from
+            self.date = date
+            self.msg = msg
+        }
     }
     
     let id:UUID
@@ -25,7 +37,7 @@ struct Chat:Component {
     let conversations:[ConversationHeader]
     let chatItems:[ChatItem]
     
-    init(id: UUID = UUID(), currentChatID: UUID, user: MockData.User, conversations: [ConversationHeader], chatItems: [ChatItem]) {
+    public init(id: UUID = UUID(), currentChatID: UUID, user: MockData.User, conversations: [ConversationHeader], chatItems: [ChatItem]) {
         self.id = id
         self.currentChatID = currentChatID
         self.user = user
@@ -33,7 +45,7 @@ struct Chat:Component {
         self.chatItems = chatItems
     }
     
-    func body() async -> Component {
+    public func body() async -> Component {
         await Row(g: 0) {
             await Column {
                 // Top Tool Bar / Search

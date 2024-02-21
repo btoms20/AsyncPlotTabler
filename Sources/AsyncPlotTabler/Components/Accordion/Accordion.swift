@@ -6,16 +6,25 @@
 import Plot
 import Foundation
 
-struct Accordion: Component {
-    struct Item {
+public struct Accordion: Component {
+    public struct Item {
         let header:Plot.Button
-        @ComponentBuilder let content:Component
+        let content:Component
+        
+        public init(header: Plot.Button, @ComponentBuilder _ content: ContentProvider) async {
+            self.header = header
+            self.content = await content()
+        }
     }
     
     let items:[Item]
     let uuid:UUID = UUID()
     
-    func body() async -> Component {
+    public init(items: [Item]) {
+        self.items = items
+    }
+    
+    public func body() async -> Component {
         await DivC("accordion") {
             for (i, item) in items.enumerated() {
                 await DivC("accordion-item") {

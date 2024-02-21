@@ -13,7 +13,7 @@ extension Plot.Form {
             let color:Colors
             let animation:SVGIcon.Animation?
             
-            init(icon: Icons, color: Colors, animation: SVGIcon.Animation? = nil) {
+            public init(icon: Icons, color: Colors, animation: SVGIcon.Animation? = nil) {
                 self.icon = icon
                 self.color = color
                 self.animation = animation
