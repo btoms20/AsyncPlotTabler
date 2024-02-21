@@ -12,7 +12,7 @@ extension Icons {
 }
 
 extension Icons {
-    static let allIcons:[(name:String, icon:Icons)] = [
+    public static let allIcons:[(name:String, icon:Icons)] = [
         (name: "_123", icon: Icons._123),
         (name: "_360", icon: Icons._360),
         (name: "_12_hours", icon: Icons._12_hours),
