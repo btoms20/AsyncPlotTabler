@@ -5,20 +5,20 @@
 
 import Plot
 
-struct Container: Component {
-    enum Size:String {
+public struct Container: Component {
+    public enum Size:String {
         case xl
     }
     
     let size:Size
     let content:Component
     
-    init(size: Size = .xl, @ComponentBuilder content:@escaping () async -> Component) async {
+    public init(size: Size = .xl, @ComponentBuilder content:@escaping () async -> Component) async {
         self.size = size
         self.content = await content()
     }
     
-    func body() async -> Component {
+    public func body() async -> Component {
         Div {
             content
         }
