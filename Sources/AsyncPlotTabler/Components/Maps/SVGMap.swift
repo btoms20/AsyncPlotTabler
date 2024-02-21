@@ -6,10 +6,10 @@
 import Plot
 import Foundation
 
-struct SVGMap:Component {
+public struct SVGMap:Component {
     @EnvironmentValue(.dependencies) var deps
     
-    enum Projection {
+    public enum Projection {
         case regular
         case mercator
         
@@ -28,15 +28,15 @@ struct SVGMap:Component {
         }
     }
     
-    struct RegionStyle:Codable {
-        static let `default`:RegionStyle = .init(initial: .init(fill: .custom("body-bg"), stroke: .custom("border-color"), strokeWidth: 2), hover: nil)
+    public struct RegionStyle:Codable {
+        public static let `default`:RegionStyle = .init(initial: .init(fill: .custom("body-bg"), stroke: .custom("border-color"), strokeWidth: 2), hover: nil)
         
-        struct RegionStyleOptions:Codable {
+        public struct RegionStyleOptions:Codable {
             let fill:String
             let stroke:String
             let strokeWidth:Double
             
-            init(fill: Colors, stroke: Colors, strokeWidth: Double) {
+            public init(fill: Colors, stroke: Colors, strokeWidth: Double) {
                 self.fill = fill.tagValue
                 self.stroke = stroke.tagValue
                 self.strokeWidth = strokeWidth
@@ -45,30 +45,40 @@ struct SVGMap:Component {
         
         let initial:RegionStyleOptions
         let hover:RegionStyleOptions?
+        
+        public init(initial: RegionStyleOptions, hover: RegionStyleOptions?) {
+            self.initial = initial
+            self.hover = hover
+        }
     }
     
-    struct Marker:Codable {
-        struct Coordinate:Codable {
+    public struct Marker:Codable {
+        public struct Coordinate:Codable {
             let lat:Double
             let lon:Double
         }
         
-        init(coords: Coordinate, name: String) {
+        public init(coords: Coordinate, name: String) {
             self.coords = [coords.lat, coords.lon]
             self.name = name
         }
         
         let coords:[Double]
         let name:String
+        
+        public init(coords:[Double], name:String) {
+            self.coords = coords
+            self.name = name
+        }
     }
     
-    struct MarkerStyle:Codable {
-        static let `default`:MarkerStyle = .init(
+    public struct MarkerStyle:Codable {
+        public static let `default`:MarkerStyle = .init(
             initial: .init(r: 4, stroke: .white, opacity: 1, strokeWidth: 3, strokeOpacity: 0.5, fill: .red),
             hover: .init(r: 4, stroke: .red, opacity: 1, strokeWidth: 3, strokeOpacity: 0.5, fill: .red)
         )
         
-        struct MarkerStyleOptions:Codable {
+        public struct MarkerStyleOptions:Codable {
             let r:Int
             let stroke: String
             let opacity: Double
@@ -76,7 +86,7 @@ struct SVGMap:Component {
             let strokeOpacity: Double
             let fill: String
             
-            init(r: Int = 4, stroke: Colors = .white, opacity: Double = 1, strokeWidth: Double = 3, strokeOpacity: Double = 0.5, fill: Colors = .red) {
+            public init(r: Int = 4, stroke: Colors = .white, opacity: Double = 1, strokeWidth: Double = 3, strokeOpacity: Double = 0.5, fill: Colors = .red) {
                 self.r = r
                 self.stroke = stroke.tagValue
                 self.opacity = opacity
@@ -88,62 +98,87 @@ struct SVGMap:Component {
         
         let initial:MarkerStyleOptions
         let hover:MarkerStyleOptions
+        
+        public init(initial: MarkerStyleOptions, hover: MarkerStyleOptions) {
+            self.initial = initial
+            self.hover = hover
+        }
     }
     
-    struct MarkerLabelStyle:Codable {
-        static let `default`:MarkerLabelStyle = .init(initial: .init(fontSize: 10))
+    public struct MarkerLabelStyle:Codable {
+        public static let `default`:MarkerLabelStyle = .init(initial: .init(fontSize: 10))
         
-        struct MarkerLabel:Codable {
+        public struct MarkerLabel:Codable {
             let fontSize:Int
+            
+            public init(fontSize: Int) {
+                self.fontSize = fontSize
+            }
         }
         
         let initial:MarkerLabel
+        
+        public init(initial: MarkerLabel) {
+            self.initial = initial
+        }
     }
     
-    struct Markers:Codable {
+    public struct Markers:Codable {
         let markerStyle:MarkerStyle
         let markerLabelStyle:MarkerLabelStyle
         let markers:[Marker]
         
-        init(markerStyle: MarkerStyle = .default, markerLabelStyle: MarkerLabelStyle = .default, markers: [Marker]) {
+        public init(markerStyle: MarkerStyle = .default, markerLabelStyle: MarkerLabelStyle = .default, markers: [Marker]) {
             self.markerStyle = markerStyle
             self.markerLabelStyle = markerLabelStyle
             self.markers = markers
         }
     }
     
-    struct VisualizeData:Codable {
+    public struct VisualizeData:Codable {
         let scale:[String]
         let values: [String:Int]
         
-        init(scale: [Colors], values: [String : Int]) {
+        public init(scale: [Colors], values: [String : Int]) {
             self.scale = scale.map { $0.tagValue }
             self.values = values
         }
     }
     
-    struct Lines:Codable {
-        struct Line:Codable {
+    public struct Lines:Codable {
+        public struct Line:Codable {
             let from:String
             let to:String
+            
+            public init(from: String, to: String) {
+                self.from = from
+                self.to = to
+            }
         }
         
-        struct LineStyle:Codable {
-            static let `default` = LineStyle(strokeDasharray: "4 4", animation: true, stroke: "rgba(98, 105, 118, .75)", strokeWidth: 0.5)
+        public struct LineStyle:Codable {
+            public static let `default` = LineStyle(strokeDasharray: "4 4", animation: true, stroke: "rgba(98, 105, 118, .75)", strokeWidth: 0.5)
             
             let strokeDasharray:String
             let animation:Bool
             let stroke:String
             let strokeWidth:Double
-        }
-        
-        init(lineStyle: LineStyle = .default, lines: [Line]) {
-            self.lineStyle = lineStyle
-            self.lines = lines
+            
+            public init(strokeDasharray: String, animation: Bool, stroke: String, strokeWidth: Double) {
+                self.strokeDasharray = strokeDasharray
+                self.animation = animation
+                self.stroke = stroke
+                self.strokeWidth = strokeWidth
+            }
         }
         
         let lineStyle:LineStyle
         let lines:[Line]
+        
+        public init(lineStyle: LineStyle = .default, lines: [Line]) {
+            self.lineStyle = lineStyle
+            self.lines = lines
+        }
     }
     
     private struct MapOptions:Codable {
@@ -169,7 +204,7 @@ struct SVGMap:Component {
     let visualizeData:VisualizeData?
     let lines:Lines?
     
-    init(uuid: UUID = UUID(), projection:Projection = .regular, regionStyle:RegionStyle = .default, markers:Markers? = nil, visualizeData:VisualizeData? = nil, lines:Lines? = nil) {
+    public init(uuid: UUID = UUID(), projection:Projection = .regular, regionStyle:RegionStyle = .default, markers:Markers? = nil, visualizeData:VisualizeData? = nil, lines:Lines? = nil) {
         self.uuid = uuid
         self.projection = projection
         self.regionStyle = regionStyle
@@ -178,9 +213,9 @@ struct SVGMap:Component {
         self.lines = lines
     }
     
-    func body() async -> Component {
+    public func body() async -> Component {
         // Add the js lib
-        deps.addJSSource("/libs/jsvectormap/dist/js/jsvectormap.min.js")
+        deps.addJSSource(.jsvectormap_js)
         // Add the maps URL
         deps.addJSSource(projection.mapURL)
         // Add the maps' config script
