@@ -43,8 +43,8 @@ extension Card.Header {
 }
 
 extension Card {
-    struct HeaderTabs:Component {
-        enum Style {
+    public struct HeaderTabs:Component {
+        public enum Style {
             case tabs
             case pills
             
@@ -60,7 +60,7 @@ extension Card {
         
         let settings:[Plot.Link]?
         
-        init(style:Style = .tabs, items: [HeaderTabsItem], settings:[Plot.Link]? = nil) {
+        public init(style:Style = .tabs, items: [HeaderTabsItem], settings:[Plot.Link]? = nil) {
             self.style = style
             self.items = items
             self.settings = settings
@@ -75,7 +75,7 @@ extension Card {
            </li>
          </ul>
          */
-        func body() async -> Component {
+        public func body() async -> Component {
             await Element(name: "ul") {
                 for item in items {
                     item
@@ -124,12 +124,12 @@ extension Card.HeaderTabs {
         }
     }
     
-    struct HeaderTabsItem:Component {
+    public struct HeaderTabsItem:Component {
         let isActive:Bool
         let isDisabled:Bool
         let content:Component
         
-        init(active:Bool = false, disabled:Bool = false, @ComponentBuilder _ content:@escaping () -> Component) {
+        public init(active:Bool = false, disabled:Bool = false, @ComponentBuilder _ content:@escaping () -> Component) {
             self.isActive = active
             self.isDisabled = disabled
             self.content = content()
@@ -149,7 +149,7 @@ extension Card.HeaderTabs {
              </a>
            </li>
          */
-        func body() async -> Component {
+        public func body() async -> Component {
             ListItem {
                 await Element(name: "a", content: {
                     content
