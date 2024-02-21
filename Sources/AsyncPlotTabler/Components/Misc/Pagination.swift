@@ -11,6 +11,13 @@ public struct Pagination: Component {
         let title:String
         let subtitle:String
         let disabled:Bool
+        
+        public init(url: URLRepresentable, title: String, subtitle: String, disabled: Bool) {
+            self.url = url
+            self.title = title
+            self.subtitle = subtitle
+            self.disabled = disabled
+        }
     }
     
     public enum Style {
