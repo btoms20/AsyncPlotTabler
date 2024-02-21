@@ -25,7 +25,7 @@ extension Plot.Form {
             let alt:String?
             let selected:Bool
             
-            init(value: String, src: URLRepresentable, alt: String? = nil, selected:Bool = false) {
+            public init(value: String, src: URLRepresentable, alt: String? = nil, selected:Bool = false) {
                 self.value = value
                 self.src = src
                 self.alt = alt
