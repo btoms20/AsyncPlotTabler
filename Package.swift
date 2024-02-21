@@ -12,12 +12,16 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "AsyncPlotTabler",
-            targets: ["AsyncPlotTabler"]),
+            targets: ["AsyncPlotTabler"]
+        ),
+        .executable(name: "Demo", targets: ["Demo"]),
     ],
     dependencies: [
         // 🧱 Plot a DSL for writing type-safe HTML
         // - Note: the fork at btoms20 is an Async/Await version of Plot
         .package(url: "https://github.com/btoms20/Plot.git", branch: "master"),
+        // Vapor (for the Demo)
+        .package(url: "https://github.com/vapor/vapor.git", from: "4.91.1"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -30,6 +34,14 @@ let package = Package(
         ),
         .testTarget(
             name: "AsyncPlotTablerTests",
-            dependencies: ["AsyncPlotTabler"]),
+            dependencies: ["AsyncPlotTabler"]
+        ),
+        .executableTarget(
+            name: "Demo",
+            dependencies: [
+                .target(name: "AsyncPlotTabler"),
+                .product(name: "Vapor", package: "vapor"),
+            ]
+        ),
     ]
 )
