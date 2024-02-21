@@ -29,6 +29,10 @@ extension Markdown {
         
         let code:String
         
+        public init(code: String) {
+            self.code = code
+        }
+        
         /*
          <div class="language-plaintext highlighter-rouge">
            <div class="highlight">
