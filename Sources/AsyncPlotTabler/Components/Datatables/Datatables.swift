@@ -141,13 +141,3 @@ public struct Datatables<T:Codable>: Component {
         })
     }
 }
-
-struct Person:Codable {
-    let name:String
-    let city:String
-    let type:String
-    let score:Double
-    let date:Date
-    let quantity:Int
-    let progress:Double
-}
