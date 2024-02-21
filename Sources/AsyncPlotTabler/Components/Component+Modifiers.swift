@@ -14,6 +14,8 @@ extension URLRepresentable where Self == String {
     
     static var tinymce_js:URLRepresentable { "/libs/tinymce/tinymce.min.js" }
     
+    static var jsvectormap_js:URLRepresentable { "/libs/jsvectormap/dist/js/jsvectormap.min.js" }
+    
     static var star_rating_js:URLRepresentable { "/libs/star-rating.js/dist/star-rating.min.js" }
     static var star_rating_css:URLRepresentable { "/libs/star-rating.js/dist/star-rating.min.css" }
 }
