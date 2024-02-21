@@ -5,14 +5,14 @@
 
 import Plot
 
-struct ActionItemCard: Component, ExplicitlySized {
+public struct ActionItemCard: Component, ExplicitlySized {
     let size:Column.Size?
     
-    init(size:Column.Size? = nil) {
+    public init(size:Column.Size? = nil) {
         self.size = size
     }
     
-    func body() async -> Component {
+    public func body() async -> Component {
         await DivC("card") {
             await DivC("empty") {
                 await DivC("empty-img") {
