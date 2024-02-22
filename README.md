@@ -48,7 +48,7 @@ Let's make this code better together! 🤝
 ## Credits
 
 - [swift-nio](https://github.com/apple/swift-nio)
-- [vapor](https://github.com/vapor/vapor) 
+- [Vapor](https://github.com/vapor/vapor) 
 - [Plot](https://github.com/JohnSundell/Plot)
 - [Tabler](https://github.com/tabler/tabler)
 
