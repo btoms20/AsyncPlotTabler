@@ -3,7 +3,6 @@ import AsyncPlotTabler
 
 func routes(_ app: Application) throws {
     app.get { req async -> Response in
-        //try await req.view.render("index", ["title": "Hello Vapor!"])
         return await Response(
             headers: ["Content-Type": "text/html"],
             component: HomePage()
