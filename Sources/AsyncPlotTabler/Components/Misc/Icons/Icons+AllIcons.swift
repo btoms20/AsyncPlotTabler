@@ -6,12 +6,6 @@
 import Foundation
 
 extension Icons {
-    static let namedIcons:[(name:String, icon:Icons)] = [
-        (name: "_123", icon: Icons._123)
-    ]
-}
-
-extension Icons {
     public static let allIcons:[(name:String, icon:Icons)] = [
         (name: "_123", icon: Icons._123),
         (name: "_360", icon: Icons._360),
