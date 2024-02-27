@@ -24,9 +24,9 @@ struct IconsPage: Component {
                         body: Card.Body({
                             Div {
                                 Div {
-                                    for icon in Icons.allIcons {
-                                        IconListItem(icon: icon)
-                                    }
+//                                    for icon in Icons.allIcons {
+//                                        IconListItem(icon: icon)
+//                                    }
                                 }
                                 .class("demo-icons-list")
                             }.class("demo-icons-list-wrap")
