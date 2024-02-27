@@ -20,15 +20,17 @@ Prebuilt Tabler Components for Async HTML Rendering in Vapor
 
 ## Local Demos
 #### 🔥 Tablers Demo Website
-- Running the `Demo` target within Xcode
-- executing `swift run Demo`
+- Run the `Demo` target within Xcode
+- Or execute `swift run Demo`
 
 #### ✅ A Todo Demo
-The only thing missing from Vapor's awesome Todo example is a UI to interact with your fancy new API!
-- Running the `Todo` target within Xcode
-- executing `swift run Todo`
+The only thing missing from [Vapor's awesome Todo example](https://github.com/vapor/template-fluent-postgres) is a UI to interact with your fancy new API!
+- Make sure your Postgres (or DB of choice) server is up, running and reachable
+- Run the `Todo` target within Xcode
+- Or execute `swift run Todo` 
 
 > [!WARNING] 
+> Before running any of the demos or deploying your own app...
 > You need to create a `Public` dir in your apps working directory with Tablers [`static`](https://github.com/tabler/tabler/tree/dev/demo/static) and [`dist`](https://github.com/tabler/tabler/tree/dev/dist) assets with the following structure
 > ``` bash
 > ├── Public
