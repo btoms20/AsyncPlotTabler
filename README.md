@@ -13,10 +13,11 @@ Prebuilt Tabler Components for Async HTML Rendering in Vapor
 ### When we combine these three powerful technologies, something revolutionary[^1] happens...
 
 #### 🔥 Check out the [Demo Website](https://vpt.btoms20.com)
-> [!NOTE]
-> This is just a hosted version of the `Demo` executable included within this package
 
 ![VPT-Home](https://github.com/btoms20/AsyncPlotTabler/assets/32753167/c06128fb-48bc-43a6-94fc-ec9f73aa7d7d)
+
+> [!NOTE]
+> This is just a hosted version of the `Demo` executable included within this package
 
 ## Local Demos
 #### 🔥 Tablers Demo Website
@@ -29,7 +30,7 @@ The only thing missing from [Vapor's awesome Todo example](https://github.com/va
 - Run the `Todo` target within Xcode
 - Or execute `swift run Todo` 
 
-> [!WARNING] 
+> [!IMPORTANT] 
 > Before running any of the demos or deploying your own app...
 > You need to create a `Public` dir in your apps working directory with Tablers [`static`](https://github.com/tabler/tabler/tree/dev/demo/static) and [`dist`](https://github.com/tabler/tabler/tree/dev/dist) assets with the following structure
 > ``` bash
