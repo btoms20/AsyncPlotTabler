@@ -37,10 +37,10 @@ struct TagsPage: Component {
                         body: .init({
                             Card.Title("Tags with Icons")
                             await DivC("tags-list") {
-//                                for _ in 1...14 {
-//                                    let icon = Icons.allIcons.randomElement()!
-//                                    await Tag(style: .icon(icon.icon, icon.name))
-//                                }
+                                for _ in 1...14 {
+                                    let icon = Icons.allIcons.randomElement()!
+                                    await Tag(style: .icon(icon.icon, icon.name))
+                                }
                             }
                         })
                     )
