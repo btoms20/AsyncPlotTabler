@@ -4,7 +4,7 @@ import Foundation
 
 extension Date {
     
-    enum DateFormatStyle {
+    public enum DateFormatStyle {
         case abbreviated
         case complete
         case long
@@ -42,7 +42,7 @@ extension Date {
         }
     }
     
-    enum TimeFormatStyle {
+    public enum TimeFormatStyle {
         case complete
         case shortened
         case standard
@@ -75,7 +75,7 @@ extension Date {
         }
     }
     
-    func formatted(date: DateFormatStyle, time: TimeFormatStyle) -> String {
+    public func formatted(date: DateFormatStyle, time: TimeFormatStyle) -> String {
         let df = DateFormatter()
         df.dateStyle = date.dateStyle
         df.timeStyle = time.timeStyle
@@ -83,13 +83,13 @@ extension Date {
         return df.string(from: self)
     }
     
-    func formatted() -> String {
+    public func formatted() -> String {
         return self.formatted(date: .abbreviated, time: .shortened)
     }
 }
 
 extension Double {
-    func formatted() -> String {
+    public func formatted() -> String {
         let nf = NumberFormatter()
         nf.maximumFractionDigits = 5
         nf.locale = .current
