@@ -6,8 +6,8 @@
 import Foundation
 
 public struct NamedIcon {
-    let name:String
-    let icon:Icons
+    public let name:String
+    public let icon:Icons
 }
 
 extension Icons {
