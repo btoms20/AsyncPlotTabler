@@ -39,7 +39,7 @@ struct IconsPage: Component {
 }
 
 fileprivate struct IconListItem:Component {
-    let icon:(name:String, icon:Icons)
+    let icon:NamedIcon
     
     func body() async -> Plot.Component {
         Link(url: "#", label: {
