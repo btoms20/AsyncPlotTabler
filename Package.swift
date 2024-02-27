@@ -20,8 +20,18 @@ let package = Package(
         // 🧱 Plot a DSL for writing type-safe HTML
         // - Note: the fork at btoms20 is an Async/Await version of Plot
         .package(url: "https://github.com/btoms20/Plot.git", branch: "master"),
-        // Vapor (for the Demo)
+        
+        // The following dependencies are for the locally hosted Demo's
+        
+        // Vapor
         .package(url: "https://github.com/vapor/vapor.git", from: "4.91.1"),
+        
+        // The following dependencies are only for the TODO List Demo
+        
+        // 🗄 An ORM for SQL and NoSQL databases
+        .package(url: "https://github.com/vapor/fluent.git", from: "4.8.0"),
+        // 🐘 Fluent driver for Postgres.
+        .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.7.2"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -41,6 +51,15 @@ let package = Package(
             dependencies: [
                 .target(name: "AsyncPlotTabler"),
                 .product(name: "Vapor", package: "vapor"),
+            ]
+        ),
+        .executableTarget(
+            name: "Todo",
+            dependencies: [
+                .target(name: "AsyncPlotTabler"),
+                .product(name: "Vapor", package: "vapor"),
+                .product(name: "Fluent", package: "Fluent"),
+                .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
             ]
         ),
     ]
