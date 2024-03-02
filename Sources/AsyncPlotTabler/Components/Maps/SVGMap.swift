@@ -56,15 +56,20 @@ public struct SVGMap:Component {
         public struct Coordinate:Codable {
             let lat:Double
             let lon:Double
+            
+            public init(lat: Double, lon: Double) {
+                self.lat = lat
+                self.lon = lon
+            }
         }
+       
+        let coords:[Double]
+        let name:String
         
         public init(coords: Coordinate, name: String) {
             self.coords = [coords.lat, coords.lon]
             self.name = name
         }
-        
-        let coords:[Double]
-        let name:String
         
         public init(coords:[Double], name:String) {
             self.coords = coords
