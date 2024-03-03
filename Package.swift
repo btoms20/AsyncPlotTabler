@@ -23,8 +23,11 @@ let package = Package(
         
         // The following dependencies are for the locally hosted Demo's
         
-        // Vapor
+        // 💧 Vapor
         .package(url: "https://github.com/vapor/vapor.git", from: "4.91.1"),
+        
+        // 🖋️ Ink Markdown Parser (Used for the Blog Demo)
+        .package(url: "https://github.com/johnsundell/ink.git", from: "0.1.0"),
         
         // The following dependencies are only for the TODO List Demo
         
@@ -60,6 +63,14 @@ let package = Package(
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "Fluent", package: "Fluent"),
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
+            ]
+        ),
+        .executableTarget(
+            name: "Blog",
+            dependencies: [
+                .target(name: "AsyncPlotTabler"),
+                .product(name: "Vapor", package: "vapor"),
+                .product(name: "Ink", package: "ink"),
             ]
         ),
     ]
