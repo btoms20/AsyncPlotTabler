@@ -29,7 +29,7 @@ public struct SVGMap:Component {
     }
     
     public struct RegionStyle:Codable {
-        public static let `default`:RegionStyle = .init(initial: .init(fill: .custom("body-bg"), stroke: .custom("border-color"), strokeWidth: 2), hover: nil)
+        public static let `default`:RegionStyle = .init(initial: .init(fill: .custom("body-bg"), stroke: .secondary, strokeWidth: 1.0), hover: nil)
         
         public struct RegionStyleOptions:Codable {
             let fill:String
@@ -111,13 +111,20 @@ public struct SVGMap:Component {
     }
     
     public struct MarkerLabelStyle:Codable {
-        public static let `default`:MarkerLabelStyle = .init(initial: .init(fontSize: 10))
+        public static let `default`:MarkerLabelStyle = .init(initial: .init(fontSize: 12, fontWeight: .bold, fill: Colors.body))
         
         public struct MarkerLabel:Codable {
+            /// Int fontSize (default: 12)
             let fontSize:Int
+            /// Int fontWeight (default: 500)
+            let fontWeight:Int
+            /// Text Color
+            let fill:String
             
-            public init(fontSize: Int) {
+            public init(fontSize: Int = 12, fontWeight:FontWeight = .bold, fill:Colors = .body) {
                 self.fontSize = fontSize
+                self.fontWeight = fontWeight.intValue
+                self.fill = fill.tagValue
             }
         }
         
@@ -162,17 +169,17 @@ public struct SVGMap:Component {
         }
         
         public struct LineStyle:Codable {
-            public static let `default` = LineStyle(strokeDasharray: "4 4", animation: true, stroke: "rgba(98, 105, 118, .75)", strokeWidth: 0.5)
+            public static let `default` = LineStyle(strokeDasharray: "4 4", animation: true, stroke: .body, strokeWidth: 0.35)
             
             let strokeDasharray:String
             let animation:Bool
             let stroke:String
             let strokeWidth:Double
             
-            public init(strokeDasharray: String, animation: Bool, stroke: String, strokeWidth: Double) {
+            public init(strokeDasharray: String, animation: Bool, stroke: Colors, strokeWidth: Double) {
                 self.strokeDasharray = strokeDasharray
                 self.animation = animation
-                self.stroke = stroke
+                self.stroke = stroke.tagValue
                 self.strokeWidth = strokeWidth
             }
         }
