@@ -73,38 +73,40 @@ extension NavBar {
                 
                 // The main SVG NavBar Link Button
                 if isDropdown {
-                    Link(url: "#navbar-base") {
-                        Span {
-                            SVGIcon(icon: icon)
-                        }
-                        .class("nav-link-icon d-md-none d-lg-inline-block")
-                        Span {
-                            Text(title)
-                        }
-                        .class("nav-link-title")
-                    }
-                    .class("nav-link dropdown-toggle")
-                    .attribute(named: "data-bs-toggle", value: "dropdown")
-                    .attribute(named: "data-bs-auto-close", value: "outside")
-                    .attribute(named: "role", value: "button")
-                    .attribute(named: "aria-expanded", value: "false")
+                    RouteItemLink(url: "#navbar-base", icon: icon, title: title)
+                        .class("nav-link dropdown-toggle")
+                        .attribute(named: "data-bs-toggle", value: "dropdown")
+                        .attribute(named: "data-bs-auto-close", value: "outside")
+                        .attribute(named: "role", value: "button")
+                        .attribute(named: "aria-expanded", value: "false")
                     
                     await DropDownMenu(columns: self.subLinks.asyncCompactMap { await routeSubLinksBuilder($0) } )
                 } else {
-                    Link(url: url) {
-                        Span {
-                            SVGIcon(icon: icon)
-                        }
-                        .class("nav-link-icon d-md-none d-lg-inline-block")
-                        Span {
-                            Text(title)
-                        }
-                        .class("nav-link-title")
-                    }
-                    .class("nav-link")
+                    RouteItemLink(url: url, icon: icon, title: title)
+                        .class("nav-link")
                 }
             }
             .class("nav-item \(active ? "active" : "") \(isDropdown ? "dropdown" : "")")
+        }
+    }
+    
+    internal struct RouteItemLink:Component {
+        let url:String
+        let icon:Icons
+        let title:String
+        
+        func body() async -> Component {
+            Link(url: url) {
+                Span {
+                    SVGIcon(icon: icon)
+                }
+                .class("nav-link-icon d-md-none d-lg-inline-block")
+                Span {
+                    Text(title)
+                }
+                .class("nav-link-title")
+            }
+            .class("nav-link")
         }
     }
 }

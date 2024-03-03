@@ -117,6 +117,25 @@ public struct NavBar: Component {
                             if searchEnabled {
                                 NavBar.Search()
                             }
+                            if themeToggleEnabled { 
+                                HRule(style: .regular)
+                                    .margin(.body(2))
+                                    .margin(.top(2))
+                                    .hidden(above: .sm)
+                                
+                                RouteItemLink(url: "?theme=dark", icon: .moon, title: "Toggle Theme")
+                                    .class("hide-theme-dark")
+                                    .margin(.body(2))
+                                    .margin(.leading(2))
+                                    .hidden(above: .sm)
+                                
+                                RouteItemLink(url: "?theme=light", icon: .sun, title: "Toggle Theme")
+                                    .class("hide-theme-light")
+                                    .margin(.body(2))
+                                    .margin(.leading(2))
+                                    .hidden(above: .sm)
+                                
+                            }
                         }
                     }
                     .class("navbar")
