@@ -30,6 +30,11 @@ The only thing missing from [Vapor's awesome Todo example](https://github.com/va
 - Run the `Todo` target within Xcode
 - Or execute `swift run Todo` 
 
+#### 📔 A Blog Demo (check out the [hosted demo](https://vpt-blog.btoms20.com))
+Want to set up a Micro Blog written entirely in Swift! Here's a template to get you started!
+- Run the `Blog` target within Xcode
+- Or execute `swift run Blog` 
+
 > [!IMPORTANT] 
 > Before running any of the demos or deploying your own app...
 > You need to create a `Public` dir in your apps working directory with Tablers [`static`](https://github.com/tabler/tabler/tree/dev/demo/static) and [`dist`](https://github.com/tabler/tabler/tree/dev/dist) assets with the following structure
