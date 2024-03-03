@@ -86,6 +86,15 @@ public enum FontWeight:String {
     case normal
     case medium
     case bold
+    
+    var intValue:Int {
+        switch self {
+        case .light: 200
+        case .normal: 400
+        case .medium: 600
+        case .bold: 800
+        }
+    }
 }
 
 public enum Theme:String {
