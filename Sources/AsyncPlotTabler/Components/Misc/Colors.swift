@@ -23,6 +23,7 @@ public enum Colors:Codable, Equatable {
     case muted
     case gray(Gray)
     
+    case body
     case primary
     case secondary
     case custom(String)
@@ -35,6 +36,8 @@ public enum Colors:Codable, Equatable {
 //            <#code#>
 //        case .hex(let string):
 //            return string
+        case .body:
+            return "body-color"
         case .gray(let weight):
             return "gray-\(weight.rawValue)"
         case .custom(let str):
