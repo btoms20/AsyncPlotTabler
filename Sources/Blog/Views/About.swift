@@ -29,17 +29,17 @@ struct About:Component {
                             Link(url: "#") {
                                 IconLabel(icon: .brand_github, text: "@alicesmith")
                             }
-                        }
+                        }.class("text-center")
                         await Column {
                             Link(url: "#") {
                                 IconLabel(icon: .brand_x, text: "@alicesmith")
                             }
-                        }
+                        }.class("text-center")
                         await Column {
                             Link(url: "#") {
                                 IconLabel(icon: .brand_linkedin, text: "@alicesmith")
                             }
-                        }
+                        }.class("text-center")
                     }
                 })
             )
