@@ -31,7 +31,7 @@ The only thing missing from [Vapor's awesome Todo example](https://github.com/va
 - Or execute `swift run Todo` 
 
 #### 📔 A Blog Demo (check out the [hosted demo](https://vpt-blog.btoms20.com))
-Want to set up a Micro Blog written entirely in Swift! Here's a template to get you started!
+Want to set up a Micro Blog written entirely in Swift?? Here's a template to get you started!
 - Run the `Blog` target within Xcode
 - Or execute `swift run Blog` 
 
