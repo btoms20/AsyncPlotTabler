@@ -63,31 +63,28 @@ extension About {
                     .margin(.body(0))
                 Div {
                     await Row {
-                        await Column(auto: true) {
-                            SVGIcon(icon: .device_laptop)
-                                .margin(.trailing(1))
-                            Text("Software Engineer by day,")
-                        } .class("page-subtitle")
-                        
-                        await Column {
-                            SVGIcon(icon: .brain)
-                                .margin(.trailing(1))
-                            Text("ML tinkerer by night!")
-                        }
-                        .class("page-subtitle")
-                        .hidden(below: .md)
+                        IconSubTitle(subTitle: "Software Engineer by day,", icon: .device_laptop)
+                        IconSubTitle(subTitle: "ML tinkerer by night!", icon: .brain)
+                            .hidden(below: .md)
                     }
                     await Row {
-                        await Column {
-                            SVGIcon(icon: .brain)
-                                .margin(.trailing(1))
-                            Text("ML tinkerer by night!")
-                        }
-                        .class("page-subtitle")
-                        .hidden(above: .sm)
-                    }
+                        IconSubTitle(subTitle: "ML tinkerer by night!", icon: .brain)
+                    }.hidden(above: .sm)
                 }
             }
+        }
+    }
+    
+    struct IconSubTitle:Component {
+        let subTitle:String
+        let icon:Icons
+        
+        func body() async -> Component {
+            await Column(auto: true) {
+                SVGIcon(icon: icon)
+                    .margin(.trailing(1))
+                Text(subTitle)
+            } .class("page-subtitle")
         }
     }
 }
