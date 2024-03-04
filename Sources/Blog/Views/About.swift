@@ -60,17 +60,31 @@ extension About {
         await .init {
             await LabeledAvatar(avatar: Avatar(size: .xl, .text("AS"), shape: .regular, badge: nil), link: "#") {
                 H1 { Text("Alice Smith") }
-                    .margin(.body(2))
-                await DivC("page-subtitle") {
+                    .margin(.body(0))
+                Div {
                     await Row {
                         await Column(auto: true) {
                             SVGIcon(icon: .device_laptop)
                                 .margin(.trailing(1))
-                            Text("Software Engineer by day, ")
+                            Text("Software Engineer by day,")
+                        } .class("page-subtitle")
+                        
+                        await Column {
                             SVGIcon(icon: .brain)
                                 .margin(.trailing(1))
                             Text("ML tinkerer by night!")
                         }
+                        .class("page-subtitle")
+                        .hidden(below: .md)
+                    }
+                    await Row {
+                        await Column {
+                            SVGIcon(icon: .brain)
+                                .margin(.trailing(1))
+                            Text("ML tinkerer by night!")
+                        }
+                        .class("page-subtitle")
+                        .hidden(above: .sm)
                     }
                 }
             }
