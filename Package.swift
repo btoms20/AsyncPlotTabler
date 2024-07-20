@@ -19,7 +19,7 @@ let package = Package(
     dependencies: [
         // 🧱 Plot a DSL for writing type-safe HTML
         // - Note: the fork at btoms20 is an Async/Await version of Plot
-        .package(url: "https://github.com/btoms20/Plot.git", branch: "master"),
+        .package(url: "https://github.com/btoms20/Plot.git", from: "0.0.1"),
         
         // The following dependencies are for the locally hosted Demo's
         
