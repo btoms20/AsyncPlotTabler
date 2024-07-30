@@ -586,6 +586,7 @@ extension Array where Element == NavBar.RouteItem {
             .init(title: "Trail ended", url: "/trial-ended", decoration: NavBar.NewBadge()),
             .init(title: "Job Listing", url: "/job-listing", decoration: NavBar.NewBadge()),
             .init(title: "Page loader", url: "/page-loader", decoration: NavBar.NewBadge()),
+            .init(title: "3D Models", url: "/models", decoration: NavBar.NewBadge()),
         ]]),
         .init(title: "Layout", icon: .chart_grid_dots, subLinks: [[
             .init(title: "Horizontal", url: "/horizontal"),
