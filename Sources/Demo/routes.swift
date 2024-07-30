@@ -465,6 +465,14 @@ func routes(_ app: Application) throws {
         )
     }
     
+    app.get("models") { req async -> Response in
+        return await Response(
+            status: .ok,
+            headers: ["Content-Type": "text/html"],
+            component: ModelsPage()
+        )
+    }
+    
 }
 
 extension Response {
