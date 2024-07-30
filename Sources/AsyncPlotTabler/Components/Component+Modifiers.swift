@@ -21,9 +21,15 @@ extension URLRepresentable where Self == String {
 }
 
 class DependencyAccumulator {
-    private(set) var rawScripts:[String]
+    private(set) var rawScripts:[(String, ScriptType?)]
     private(set) var jsSources:[URLRepresentable]
     private(set) var cssSources:[URLRepresentable]
+    
+    enum ScriptType:String {
+        case none = ""
+        case module = "module"
+        case importMap = "importmap"
+    }
     
     init() {
         self.rawScripts = []
@@ -31,8 +37,17 @@ class DependencyAccumulator {
         self.cssSources = []
     }
     
-    func addRawScript(_ str:String) {
-        self.rawScripts.append(str)
+    func addRawScript(_ str:String, as type: ScriptType = .none) {
+        if type == .importMap {
+            // Only append duplicate importMaps once
+            if !self.rawScripts.contains(where: { existing in
+                existing.1 == type && existing.0 == str
+            }) {
+                self.rawScripts.append((str, type))
+            }
+        } else {
+            self.rawScripts.append((str, type))
+        }
     }
     
     func addJSSource(_ url:URLRepresentable) {
@@ -445,7 +460,11 @@ extension Component {
                 .script(.defer(), .src("/js/demo.min.js")),
                 
                 .asyncForEach(da.rawScripts, { script in
-                    await .script(.raw(script))
+                    if script.1 != DependencyAccumulator.ScriptType.none {
+                        await .script(.raw(script.0), .attribute(named: "type", value: script.1?.rawValue))
+                    } else {
+                        await .script(.raw(script.0))
+                    }
                 })
             )
         )
