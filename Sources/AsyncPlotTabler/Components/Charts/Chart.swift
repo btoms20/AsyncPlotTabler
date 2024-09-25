@@ -16,14 +16,81 @@ public struct Chart:Component {
     }
     
     public struct DataSeries:Codable {
+        
+        public enum DataFormat:Codable {
+            case double([Double])
+            case optionalDouble([Double?])
+            case int([Int])
+            case optionalInt([Int?])
+            case pairs([Pair])
+            case optionalPairs([Pair?])
+            
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                switch self {
+                case .double(let val):
+                    try container.encode(val)
+                case .optionalDouble(let val):
+                    try container.encode(val)
+                case .int(let val):
+                    try container.encode(val)
+                case .optionalInt(let val):
+                    try container.encode(val)
+                case .pairs(let val):
+                    try container.encode(val)
+                case .optionalPairs(let val):
+                    try container.encode(val)
+                }
+            }
+            
+            var isNumeric:Bool {
+                switch self {
+                case .pairs, .optionalPairs:
+                    return true
+                default:
+                    return false
+                }
+            }
+        }
+        
         let name:String
         let color:String?
-        let data:[Double?]
+        let data:DataFormat
+        
+        public init(name: String, color: Colors? = nil, data: [Double]) {
+            self.name = name
+            self.color = color?.tagValue
+            self.data = .double(data)
+        }
         
         public init(name: String, color: Colors? = nil, data: [Double?]) {
             self.name = name
             self.color = color?.tagValue
-            self.data = data
+            self.data = .optionalDouble(data)
+        }
+        
+        public init(name: String, color: Colors? = nil, data: [Int]) {
+            self.name = name
+            self.color = color?.tagValue
+            self.data = .int(data)
+        }
+        
+        public init(name: String, color: Colors? = nil, data: [Int?]) {
+            self.name = name
+            self.color = color?.tagValue
+            self.data = .optionalInt(data)
+        }
+        
+        public init(name: String, color: Colors? = nil, data: [Pair]) {
+            self.name = name
+            self.color = color?.tagValue
+            self.data = .pairs(data)
+        }
+        
+        public init(name: String, color: Colors? = nil, data: [Pair?]) {
+            self.name = name
+            self.color = color?.tagValue
+            self.data = .optionalPairs(data)
         }
     }
     
@@ -276,6 +343,11 @@ public struct Chart:Component {
         }
     }
     
+    public enum XAxisLabelType:String {
+        case datetime
+        case numeric
+    }
+    
     public struct YAxisOptions:Codable {
         let labels:LabelOptions
         let max:Int?
@@ -365,6 +437,20 @@ public struct Chart:Component {
         
         public init(size: Int?) {
             self.size = size
+        }
+    }
+    
+    public struct Pairs:Codable {
+        let data:[Pair]
+    }
+    
+    public struct Pair:Codable {
+        let x:Double
+        let y:Double
+        
+        public init(x: Double, y: Double) {
+            self.x = x
+            self.y = y
         }
     }
     
@@ -586,7 +672,7 @@ public struct Chart:Component {
             title: nil, //.init(text: title, align: "left"),
             tooltip: .init(theme: "dark"),
             grid: .init(row: nil, strokeDashArray: 4, padding: .init(top: -20, right: 0, left: -4, bottom: -4), xaxis: nil), //.init(colors: ["#f3f3f3", "transparent"], opacity: 0.5)
-            xaxis: .init(labels: .init(padding: 0), tooltip: nil, axisBorder: nil, categories: nil, type: datetimeLabels ? "datetime" : nil),
+            xaxis: .init(labels: .init(padding: 0), tooltip: nil, axisBorder: nil, categories: nil, type: datetimeLabels ? "datetime" : series.first!.data.isNumeric ? "numeric" : nil),
             yaxis: .init(labels: .init(padding: 4), max: nil, type: nil),
             colors: [color.tagValue],
             labels: xAxisLabels,
@@ -606,7 +692,7 @@ public struct Chart:Component {
             title: nil, //.init(text: title, align: "left"),
             tooltip: .init(theme: "dark"),
             grid: .init(row: nil, strokeDashArray: 4, padding: .init(top: -20, right: 0, left: -4, bottom: -4), xaxis: nil), //.init(colors: ["#f3f3f3", "transparent"], opacity: 0.5)
-            xaxis: .init(labels: .init(padding: 0), tooltip: nil, axisBorder: nil, categories: nil, type: datetimeLabels ? "datetime" : nil),
+            xaxis: .init(labels: .init(padding: 0), tooltip: nil, axisBorder: nil, categories: nil, type: datetimeLabels ? "datetime" : series.first!.data.isNumeric ? "numeric" : nil),
             yaxis: .init(labels: .init(padding: 4), max: nil, type: nil),
             colors: colors.map { $0.tagValue },
             labels: xAxisLabels,

@@ -331,6 +331,49 @@ struct ChartsPage: Component {
                     }))
                     
                 }
+                
+                await CardHStack {
+                    
+                    await Card(
+                        header: .init({
+                            Card.Title("Sunrise & Sunset", subTitle: "An example of paired data points which are not evenly spaced")
+                        }),
+                        body: .init({
+                            Chart(options:
+                                  Chart.basicLineChart(
+                                      lineStyle: .smooth,
+                                      fillStyle: .noFill,
+                                      title: "Sunrise & Sunset",
+                                      series: [
+                                        .init(name: "Suns Position", color: .azure, data: [
+                                            Chart.Pair(x: 0, y: 0),
+                                            Chart.Pair(x: 7, y: 0),
+                                            Chart.Pair(x: 13, y: 1),
+                                            Chart.Pair(x: 16, y: 1),
+                                            Chart.Pair(x: 22, y: 0),
+                                            Chart.Pair(x: 24, y: 0),
+                                        ]),
+                                        .init(name: "Moons Position", color: .orange, data: [
+                                            Chart.Pair(x: 0, y: 0.75),
+                                            Chart.Pair(x: 5, y: 0.75),
+                                            Chart.Pair(x: 13, y: 0),
+                                            Chart.Pair(x: 16, y: 0),
+                                            Chart.Pair(x: 20, y: 0.75),
+                                            Chart.Pair(x: 24, y: 0.75),
+                                        ])
+                                      ],
+                                      xAxisLabels: nil,
+                                      datetimeLabels: false,
+                                      color: .azure,
+                                      height: 240,
+                                      markers: .init(size: 5),
+                                      dataLabelsEnabled: false
+                                  )
+                            )
+                        })
+                    )
+                    
+                }
             }
         }))
     }
