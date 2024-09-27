@@ -146,9 +146,9 @@ extension Plot.Form {
                     Input(type: .hidden, name: name)
                         .id("range-input-\(uuid.uuidString)")
                 case .range:
-                    Input(type: .hidden, name: "min\(name.capitalized)")
+                    Input(type: .hidden, name: "\(name)Min")
                         .id("range-input-min-\(uuid.uuidString)")
-                    Input(type: .hidden, name: "max\(name.capitalized)")
+                    Input(type: .hidden, name: "\(name)Max")
                         .id("range-input-max-\(uuid.uuidString)")
                 }
             }
