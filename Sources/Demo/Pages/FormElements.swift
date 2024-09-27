@@ -772,13 +772,12 @@ struct FormElementsPage: Component {
                                         ])
                                     }
                                     
-                                    
                                     await DivC("mb-3") {
                                         Plot.Form.Label("Range input")
                                         Plot.Form.Range(range: 0...100, value: 40, step: 10, color: .red)
-                                        Plot.Form.NoUISlider(range: 0...100, style: .regular(defaultStart: 20))
-                                        Plot.Form.NoUISlider(range: 0...100, style: .range(defaultStart: 20, defaultEnd: 60))
-                                        Plot.Form.NoUISlider(range: 0...100, style: .regular(defaultStart: 20), color: .green)
+                                        Plot.Form.NoUISlider(name: "slider1", range: 0...100, style: .regular(defaultStart: 20))
+                                        Plot.Form.NoUISlider(name: "slider2", range: 0...100, style: .range(defaultStart: 20, defaultEnd: 60, limit: nil, margin: 10))
+                                        Plot.Form.NoUISlider(name: "slider3", range: 0...100, style: .regular(defaultStart: 20), color: .green)
                                     }
                                     
                                     await DivC("mb-3") {
