@@ -1,5 +1,5 @@
 // Swift 6.0+ contains DateFormatStyle so we don't need this shim anymore
-#if os(Linux) && swift(<6.0)
+#if os(Linux) && compiler(<6.0)
 import Foundation
 
 extension Date {
