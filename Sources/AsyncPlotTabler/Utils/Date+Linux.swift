@@ -1,5 +1,5 @@
-#if os(Linux)
-
+// Swift 6.0+ contains DateFormatStyle so we don't need this shim anymore
+#if os(Linux) && swift(<6.0)
 import Foundation
 
 extension Date {
@@ -97,5 +97,4 @@ extension Double {
         return nf.string(from: NSNumber(floatLiteral: self)) ?? "???"
     }
 }
-
 #endif
