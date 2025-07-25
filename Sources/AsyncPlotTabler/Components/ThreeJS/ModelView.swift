@@ -72,25 +72,47 @@ public struct ModelView:Component {
     }
    
     public enum Loader {
+        /// Supports loading .glb files with textures
         case gltf(String)
+        /// Supports Text Based .usdz files with textures
+        /// - Important: The mesh within the usd zip must be text based (.usda) not binary based (.usdc)
+        /// - Note: You can convert a binary .usdc file to a text based file using the `usdcat` cmd line tool
+        case usdz(String)
         
-        var loaderImport:String {
+        fileprivate var loaderImport:String {
             switch self {
             case .gltf:
                 "import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'"
+            case .usdz:
+                "import { USDZLoader } from 'three/addons/loaders/USDZLoader.js';"
             }
         }
         
-        var loaderInstantiation:String {
+        fileprivate var loaderInstantiation:String {
             switch self {
             case .gltf:
                 "new GLTFLoader()"
+            case .usdz:
+                "new USDZLoader()"
             }
         }
         
-        var path:String {
+        fileprivate var modelInstantiation:String {
+            switch self {
+            // GLB models are loaded embeded within a scene param
+            case .gltf:
+                "m.scene"
+            // While usda models are present at the top level
+            case .usdz:
+                "m"
+            }
+        }
+        
+        fileprivate var path:String {
             switch self {
             case .gltf(let p):
+                return p
+            case .usdz(let p):
                 return p
             }
         }
@@ -119,8 +141,8 @@ public struct ModelView:Component {
         let importMap = """
         {
           "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/"
+            "three": "https://cdn.jsdelivr.net/npm/three@\(version)/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@\(version)/examples/jsm/"
           }
         }
         """
@@ -140,59 +162,84 @@ public struct ModelView:Component {
         let containerID = "cont\(self.uuid.uuidString.prefix(5))"
         
         let script = """
-        
         import * as THREE from 'three';
+
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         \(loader.loaderImport);
-        
+
         const \(containerID) = document.getElementById("model-\(self.uuid.uuidString)");
         
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera( 75, \(containerID).clientWidth / \(containerID).clientHeight, 0.1, 1000 );
-        camera.position.set(0, 0, 0.5);
+        let camera, scene, renderer, model, directionalLight, controls;
         
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize( \(containerID).clientWidth, \(containerID).clientHeight );
-        renderer.setAnimationLoop( animate );
-        \(containerID).appendChild( renderer.domElement );
+        init();
+
+        async function init() {
+
+            camera = new THREE.PerspectiveCamera( 75, \(containerID).clientWidth / \(containerID).clientHeight, 0.1, 1000 );
+            camera.position.set(0, 0, 1.5);
         
-        const controls = new OrbitControls( camera, renderer.domElement );
-        controls.maxPolarAngle = Math.PI / 2.8;
-        controls.minPolarAngle = Math.PI / 8;
-        controls.minDistance = 0.4;
-        controls.maxDistance = 0.5;
+            scene = new THREE.Scene();
 
-        const light = new THREE.HemisphereLight()
-        scene.add( light );
+            const loader = \(loader.loaderInstantiation);
+
+            const [ m ] = await Promise.all( [
+                loader.loadAsync( '\(loader.path)' ),
+            ] );
+
+            // model
+
+            model = \(loader.modelInstantiation);
+            //model.position.y = -0.25;
+            //model.position.z = - 0.25;
+            scene.add( model );
+
+            // lights
         
-        const light2 = new THREE.DirectionalLight( 0xffffff, \(options.light.directionalLightIntisity) );
-        light2.position.set(0, 0, 0.5);
-        scene.add( light2 );
+            const light = new THREE.HemisphereLight()
+            scene.add( light );
+            
+            directionalLight = new THREE.DirectionalLight( 0xffffff, \(options.light.directionalLightIntisity) );
+            directionalLight.position.set(0, 0, 0.5);
+            scene.add( directionalLight );
+        
+            // renderer
 
-        const loader = \(loader.loaderInstantiation);
+            renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.setSize( \(containerID).clientWidth, \(containerID).clientHeight  );
+            renderer.setAnimationLoop( animate );
+            \(containerID).appendChild( renderer.domElement );
 
-        let model;
-        loader.load( '\(loader.path)', function ( object ) {
-            model = object;
-            scene.add( model.scene );
-            fitCameraToCenteredObject(camera, model.scene, \(options.offset), controls)
-        }, undefined, function ( error ) {
-            console.error( error );
-        } );
-
-        function animate() {
-            \(options.animations.enabled ? "if (model) { model.scene.rotation.y += \(options.animations.speed); }" : "")
+            // controls 
+        
+            controls = new OrbitControls( camera, renderer.domElement );
+            controls.maxPolarAngle = Math.PI / 2.8;
+            controls.minPolarAngle = Math.PI / 8;
             controls.update();
-            light2.position.copy( camera.position );
-            renderer.render( scene, camera );
-        }
-        
-        window.addEventListener( 'resize', onWindowResize, false );
+            
+            // position camera around object
 
-        function onWindowResize(){
+            fitCameraToCenteredObject(camera, model, \(options.offset), controls)
+        
+            // register window resize listener
+        
+            window.addEventListener( 'resize', onWindowResize );
+        }
+
+        function onWindowResize() {
+
             camera.aspect = \(containerID).clientWidth / \(containerID).clientHeight;
             camera.updateProjectionMatrix();
+
             renderer.setSize( \(containerID).clientWidth, \(containerID).clientHeight );
+
+        }
+
+        function animate() {
+            \(options.animations.enabled ? "if (typeof model !== 'undefined') { model.rotation.y += \(options.animations.speed); }" : "")
+            controls.update();
+            directionalLight.position.copy( camera.position );
+            renderer.render( scene, camera );
         }
         
         // https://wejn.org/2020/12/cracking-the-threejs-object-fitting-nut/
@@ -265,8 +312,7 @@ public struct ModelView:Component {
                 orbitControls.maxDistance = cameraToFarEdge * offset * \(options.zoom.enabled ? "1.2" : "1.0");
                 orbitControls.minDistance = cameraToFarEdge * offset * \(options.zoom.enabled ? "0.8" : "1.0");
             }
-        };
-        
+        }
         """
         
         return script
