@@ -113,6 +113,8 @@ public struct ModelView:Component {
         //deps.addJSSource("/libs/threejs/GLTFLoader.js")
         //deps.addJSSource("/libs/threejs/BufferGeometryUtils.js")
         
+        let version = "0.178.0"
+        
         // Inject Module Map
         let importMap = """
         {
